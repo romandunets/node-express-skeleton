@@ -1,0 +1,25 @@
+{
+  "name": "node-wordlist",
+  "version": "1.0.0",
+  "description": "Node.js wordlist application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/romandunets/node-wordlist.git"
+  },
+  "keywords": [
+    "REST",
+    "API",
+    "Node.js",
+    "wordlist"
+  ],
+  "author": "Roman Dunets",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/romandunets/node-wordlist/issues"
+  },
+  "homepage": "https://github.com/romandunets/node-wordlist#readme"
+}
