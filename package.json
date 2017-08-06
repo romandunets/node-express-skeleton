@@ -4,6 +4,7 @@
   "description": "Node.js wordlist application",
   "main": "index.js",
   "scripts": {
+    "start": "nodemon server.js"
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -21,5 +22,11 @@
   "bugs": {
     "url": "https://github.com/romandunets/node-wordlist/issues"
   },
-  "homepage": "https://github.com/romandunets/node-wordlist#readme"
+  "homepage": "https://github.com/romandunets/node-wordlist#readme",
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  },
+  "dependencies": {
+    "express": "^4.15.3"
+  }
 }
