@@ -10,4 +10,4 @@ var WordSchema = new Schema({
   }
 });
 
-module.exports = mongoose.model('Words', TaskSchema);
+module.exports = mongoose.model('Words', WordSchema);

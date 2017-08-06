@@ -4,7 +4,7 @@ var mongoose = require('mongoose');
 var Word = mongoose.model('Words');
 
 exports.list_all_words = function(req, res) {
-  Task.find({}, function(err, word) {
+  Word.find({}, function(err, word) {
     if (err)
       res.send(err);
     res.json(word);
