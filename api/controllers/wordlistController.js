@@ -42,6 +42,6 @@ exports.delete_word = function(req, res) {
   }, function(err, word) {
     if (err)
       res.send(err);
-    res.json({ message: 'Task successfully deleted' });
+    res.json({ message: 'Word successfully deleted' });
   });
 };
