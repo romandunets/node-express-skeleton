@@ -2,6 +2,7 @@
 var express    = require('express');
 var bodyParser = require('body-parser');
 var mongoose   = require('mongoose');
+var morgan     = require('morgan');
 var jwt        = require('jsonwebtoken');
 
 // define the application
@@ -14,6 +15,9 @@ var User = require('./api/models/userModel');
 // configure application to use bodyParser which allows to parse POST request bodies
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+// configure application to use morgan for requests logging
+app.use(morgan('dev'));
 
 // configure secret variable
 app.set('secret', 'supersecret');
