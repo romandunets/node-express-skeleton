@@ -1,17 +1,22 @@
 // call required packages
-var express = require('express');
+var express    = require('express');
 var bodyParser = require('body-parser');
-var mongoose = require('mongoose');
-
-// Load models
-var Word = require('./api/models/wordlistModel');
+var mongoose   = require('mongoose');
+var jwt        = require('jsonwebtoken');
 
 // define the application
 var app = express();
 
+// load models
+var Word = require('./api/models/wordlistModel');
+var User = require('./api/models/userModel');
+
 // configure application to use bodyParser which allows to parse POST request bodies
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+// configure secret variable
+app.set('secret', 'supersecret');
 
 // connect to mongo database
 mongoose.Promise = global.Promise;
@@ -21,7 +26,7 @@ mongoose.connect('mongodb://localhost/wordlistdb');
 var routes = require('./api/routes/wordlistRoutes');
 routes(app);
 
-// Add handling for 404 - not found
+// add handling for 404 - not found
 app.use(function(req, res) {
   res.status(404).send({url: req.originalUrl + ' not found'})
 });
