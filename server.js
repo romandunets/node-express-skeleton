@@ -27,8 +27,10 @@ mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/wordlistdb');
 
 // register routes
-var routes = require('./api/routes/wordlistRoutes');
-routes(app);
+var wordRoutes = require('./api/routes/wordlistRoutes');
+wordRoutes(app);
+var userRoutes = require('./api/routes/userRoutes');
+userRoutes(app);
 
 // add handling for 404 - not found
 app.use(function(req, res) {
