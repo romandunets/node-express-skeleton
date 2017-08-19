@@ -20,7 +20,7 @@ app.use(bodyParser.json());
 app.use(morgan('dev'));
 
 // configure secret variable
-app.set('secret', 'supersecret');
+//app.set('secret', 'supersecret');
 
 // connect to mongo database
 mongoose.Promise = global.Promise;
