@@ -9,8 +9,8 @@ var jwt        = require('jsonwebtoken');
 var app = express();
 
 // load models
-var Word = require('./api/models/wordlistModel');
 var User = require('./api/models/userModel');
+var Item = require('./api/models/itemModel');
 
 // configure application to use bodyParser which allows to parse POST request bodies
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -41,4 +41,4 @@ var port = process.env.PORT || 3000;
 // start the server
 app.listen(port);
 
-console.log('Wordlist REST API server started on port: ' + port);
+console.log('Node + Express REST API skeleton server started on port: ' + port);
