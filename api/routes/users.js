@@ -1,5 +1,5 @@
 const routes = require('express').Router();
-const users = require('../controllers/userController');
+const users = require('../controllers/users');
 
 routes.route('/')
   .get(users.list_all_users)

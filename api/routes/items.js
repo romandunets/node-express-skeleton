@@ -1,5 +1,5 @@
 const routes = require('express').Router();
-const items = require('../controllers/itemsController');
+const items = require('../controllers/items');
 
 routes.route('/')
   .get(items.list_all_items)

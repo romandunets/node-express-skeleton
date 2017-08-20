@@ -9,8 +9,8 @@ var jwt        = require('jsonwebtoken');
 var app = express();
 
 // load models
-var User = require('./api/models/userModel');
-var Item = require('./api/models/itemModel');
+var User = require('./api/models/user');
+var Item = require('./api/models/item');
 
 // configure application to use bodyParser which allows to parse POST request bodies
 app.use(bodyParser.urlencoded({ extended: true }));
