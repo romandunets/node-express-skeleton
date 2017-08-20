@@ -1,5 +1,9 @@
 const routes = require('express').Router();
+
 const items = require('../controllers/items');
+const auth = require('../controllers/auth');
+
+routes.use(auth.verify_token);
 
 routes.route('/')
   .get(items.list_all_items)

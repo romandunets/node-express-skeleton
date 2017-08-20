@@ -6,8 +6,9 @@ The repository contains a sample Express REST API which is preconfigured to inst
 This project demonstrates:
  * How to organize project directory structure
  * How to organize routing for large applications
- * How to set up JWT authentification
+ * How to set up JWT authentification for private routes
 
 ## References:
  * https://scotch.io/tutorials/authenticate-a-node-js-api-with-json-web-tokens
+ * https://scotch.io/quick-tips/route-middleware-to-check-if-a-user-is-authenticated-in-node-js
  * https://scotch.io/tutorials/keeping-api-routing-clean-using-express-routers
