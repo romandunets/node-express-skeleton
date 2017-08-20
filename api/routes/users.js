@@ -4,13 +4,13 @@ const users = require('../controllers/users');
 const auth = require('../controllers/auth');
 
 routes.route('/')
-  .get(auth.verify_token, users.list_all_users)
-  .post(users.create_user);
+  .get(auth.verify_token, users.list)
+  .post(users.create);
 
 routes.route('/:id')
   .all(auth.verify_token)
-  .get(users.read_user)
-  .put(users.update_user)
-  .delete(users.delete_user);
+  .get(users.read)
+  .put(users.update)
+  .delete(users.delete);
 
 module.exports = routes;

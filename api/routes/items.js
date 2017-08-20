@@ -6,12 +6,12 @@ const auth = require('../controllers/auth');
 routes.use(auth.verify_token);
 
 routes.route('/')
-  .get(items.list_all_items)
-  .post(items.create_item);
+  .get(items.list)
+  .post(items.create);
 
 routes.route('/:id')
-  .get(items.read_item)
-  .put(items.update_item)
-  .delete(items.delete_item);
+  .get(items.read)
+  .put(items.update)
+  .delete(items.delete);
 
 module.exports = routes;
