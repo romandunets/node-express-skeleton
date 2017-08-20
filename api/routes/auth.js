@@ -1,4 +1,6 @@
-const routes = require('express').Router();
+const express = require('express');
+const routes  = express.Router();
+
 const auth = require('../controllers/auth');
 
 routes.route('/authenticate')

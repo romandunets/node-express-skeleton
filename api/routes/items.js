@@ -1,7 +1,8 @@
-const routes = require('express').Router();
+const express = require('express');
+const routes  = express.Router();
 
 const items = require('../controllers/items');
-const auth = require('../controllers/auth');
+const auth  = require('../controllers/auth');
 
 routes.use(auth.verify_token);
 

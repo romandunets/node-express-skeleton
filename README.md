@@ -4,6 +4,7 @@ This project is a skeleton for Node + Express REST API. It can be used as a star
 The repository contains a sample Express REST API which is preconfigured to install all the dependencies for instant development. The application has very simple business logic showing how to implement basic operations with user model. The main purpose of this project is to demonstrate how to organize your Express project.
 
 This project demonstrates:
+ * How to implement CRUD pattern
  * How to organize project directory structure
  * How to organize routing for large applications
  * How to set up JWT authentification for private routes
