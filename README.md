@@ -9,6 +9,12 @@ This project demonstrates:
  * How to organize routing for large applications
  * How to set up JWT authentification for private routes
 
+## TODO:
+ * Directory structure
+ * Configure secret variable
+ * Models validation
+ * User has many items relationship
+
 ## References:
  * https://scotch.io/tutorials/authenticate-a-node-js-api-with-json-web-tokens
  * https://scotch.io/quick-tips/route-middleware-to-check-if-a-user-is-authenticated-in-node-js
