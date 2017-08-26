@@ -14,8 +14,11 @@ This project demonstrates:
  * Configure secret variable
  * Models validation
  * User has many items relationship
+ * Add unit tests
+ * CORS problem
 
 ## References:
+ * https://www.terlici.com/2014/08/25/best-practices-express-structure.html
  * https://scotch.io/tutorials/authenticate-a-node-js-api-with-json-web-tokens
  * https://scotch.io/quick-tips/route-middleware-to-check-if-a-user-is-authenticated-in-node-js
  * https://scotch.io/tutorials/keeping-api-routing-clean-using-express-routers

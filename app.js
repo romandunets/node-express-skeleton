@@ -9,8 +9,8 @@ var jwt        = require('jsonwebtoken');
 var app = express();
 
 // load models
-var User = require('./api/models/user');
-var Item = require('./api/models/item');
+var User = require('./models/user');
+var Item = require('./models/item');
 
 // configure application to use bodyParser which allows to parse POST request bodies
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -27,7 +27,7 @@ mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/wordlistdb');
 
 // register routes
-var routes = require('./api/routes');
+var routes = require('./routes');
 app.use('/', routes);
 
 // add handling for 404 - not found
