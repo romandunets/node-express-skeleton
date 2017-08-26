@@ -10,7 +10,6 @@ This project demonstrates:
  * How to set up JWT authentification for private routes
 
 ## TODO:
- * Directory structure
  * Configure secret variable
  * Models validation
  * User has many items relationship

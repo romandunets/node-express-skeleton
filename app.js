@@ -24,7 +24,7 @@ app.use(morgan('dev'));
 
 // connect to mongo database
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/wordlistdb');
+mongoose.connect('mongodb://localhost/wordlistdb', { useMongoClient: true });
 
 // register routes
 var routes = require('./routes');
