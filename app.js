@@ -23,9 +23,6 @@ app.use(bodyParser.json());
 // configure application to use morgan for requests logging
 app.use(morgan('dev'));
 
-// configure secret variable
-//app.set('secret', 'supersecret');
-
 // register routes
 var routes = require('./routes');
 app.use('/', routes);
