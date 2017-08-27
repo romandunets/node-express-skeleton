@@ -1,16 +1,19 @@
-// call required packages
-var express    = require('express');
-var bodyParser = require('body-parser');
-var mongoose   = require('mongoose');
-var morgan     = require('morgan');
-var jwt        = require('jsonwebtoken');
-
-// define the application
-var app = express();
+// load required packages
+const express    = require('express');
+const bodyParser = require('body-parser');
+const mongoose   = require('mongoose');
+const morgan     = require('morgan');
+const jwt        = require('jsonwebtoken');
 
 // load models
-var User = require('./models/user');
-var Item = require('./models/item');
+const User = require('./models/user');
+const Item = require('./models/item');
+
+// load configuration
+const config = require('./config/config');
+
+// define the application
+const app = express();
 
 // configure application to use bodyParser which allows to parse POST request bodies
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -36,8 +39,7 @@ app.use(function(req, res) {
 });
 
 // set up the port
-var port = process.env.PORT || 3000;
-
+var port = process.env.PORT || config.server.port;
 // start the server
 app.listen(port);
 
