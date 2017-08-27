@@ -30,11 +30,6 @@ app.use(morgan('dev'));
 var routes = require('./routes');
 app.use('/', routes);
 
-// add handling for 404 - not found
-app.use(function(req, res) {
-  res.status(404).send({url: req.originalUrl + ' not found'})
-});
-
 // set up the port
 var port = process.env.PORT || config.server.port;
 // start the server

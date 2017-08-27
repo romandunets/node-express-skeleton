@@ -13,4 +13,8 @@ routes.get('/', (req, res) => {
   res.status(200).json({ message: 'Ok' });
 });
 
+routes.use(function(req, res) {
+  res.status(404).send({url: req.originalUrl + ' not found'})
+});
+
 module.exports = routes;
