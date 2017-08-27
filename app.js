@@ -11,6 +11,7 @@ const Item = require('./models/item');
 
 // load configuration
 const config = require('./config/config');
+const db = require('./config/db');
 
 // define the application
 const app = express();
@@ -24,10 +25,6 @@ app.use(morgan('dev'));
 
 // configure secret variable
 //app.set('secret', 'supersecret');
-
-// connect to mongo database
-mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/wordlistdb', { useMongoClient: true });
 
 // register routes
 var routes = require('./routes');
