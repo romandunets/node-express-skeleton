@@ -10,7 +10,6 @@ This project demonstrates:
  * How to set up JWT authentification for private routes
 
 ## TODO:
- * Remove hash_password from response
  * Models validation
  * Populate database automatically
  * User has many items relationship
@@ -21,5 +20,6 @@ This project demonstrates:
  * https://www.terlici.com/2014/08/25/best-practices-express-structure.html
  * https://medium.com/@pandeysoni/user-authentication-using-jwt-json-web-token-in-node-js-using-express-framework-543151a38ea1
  * https://scotch.io/tutorials/authenticate-a-node-js-api-with-json-web-tokens
+ * https://www.codementor.io/olatundegaruba/5-steps-to-authenticating-node-js-with-jwt-7ahb5dmyr
  * https://scotch.io/quick-tips/route-middleware-to-check-if-a-user-is-authenticated-in-node-js
  * https://scotch.io/tutorials/keeping-api-routing-clean-using-express-routers
