@@ -8,7 +8,7 @@ var UserSchema = new Schema({
     type: String,
     Required: 'Email is required'
   },
-  password: {
+  hash_password: {
   	type: String,
   	Required: 'Password is required'
   }

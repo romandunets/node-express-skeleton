@@ -10,9 +10,10 @@ This project demonstrates:
  * How to set up JWT authentification for private routes
 
 ## TODO:
- * Configure secret variable
  * Encrypt user password
+ * Remove hash_password from response
  * Models validation
+ * Populate database automatically
  * User has many items relationship
  * Add unit tests
  * CORS problem

@@ -12,6 +12,7 @@ const Item = require('./models/item');
 // load configuration
 const config = require('./config/config');
 const db = require('./config/db');
+const routes = require('./routes');
 
 // define the application
 const app = express();
@@ -24,7 +25,6 @@ app.use(bodyParser.json());
 app.use(morgan('dev'));
 
 // register routes
-var routes = require('./routes');
 app.use('/', routes);
 
 // set up the port
