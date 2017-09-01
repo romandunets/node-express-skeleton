@@ -33,10 +33,14 @@ exports.read = function(req, res) {
 };
 
 exports.update = function(req, res) {
-  User.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, user) {
-    if (err)
-      res.send(err);
-    res.json(user);
+  var user_data = req.body;
+  bcrypt.hash(req.body.password, 10, function(err, hash_password) {
+    user_data.hash_password = hash_password;
+    User.findOneAndUpdate({_id: req.params.id}, user_data, {new: true}, function(err, user) {
+      if (err)
+        res.send(err);
+      res.json(user);
+    });
   });
 };
 
