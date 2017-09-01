@@ -12,14 +12,15 @@ var tokenExpireInMinutes = configuration.key.tokenExpireInMinutes;
 
 exports.authenticate = function(req, res) {
 
-  User.findOne().select('+hash_password').exec({
-    email: req.body.email
-  }, function(err, user) {
+  User.findOne({ email: req.body.email })
+  .select('+hash_password')
+  .exec(function(err, user) {
 
     if (err) throw err;
 
+    console.log(user);
     if (!user) {
-      res.json({
+      res.status(401).json({
         success: false,
         message: 'Authentication failed. User not found.'
       });
@@ -36,7 +37,7 @@ exports.authenticate = function(req, res) {
             token: token
           });
         } else {
-          res.json({
+          res.status(401).json({
             success: false,
             message: 'Authentication failed. Wrong password.'
           });
@@ -52,7 +53,7 @@ exports.verify_token = function(req, res, next) {
   if (token) {
     jwt.verify(token, privateKey, function(err, decoded) {
       if (err) {
-        return res.json({
+        return res.status(401).json({
           success: false,
           message: 'Failed to authenticate token.'
         });    
@@ -62,7 +63,7 @@ exports.verify_token = function(req, res, next) {
       }
     });
   } else {
-    return res.status(403).send({ 
+    return res.status(401).json({
       success: false,
       message: 'No token provided.'
     });
