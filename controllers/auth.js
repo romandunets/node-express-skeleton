@@ -11,12 +11,10 @@ var privateKey = configuration.key.privateKey;
 var tokenExpireInMinutes = configuration.key.tokenExpireInMinutes;
 
 exports.authenticate = function(req, res) {
-
   // find user by email
-  User.findOne({
+  User.findOne().select('+hash_password').exec({
     email: req.body.email
   }, function(err, user) {
-
     if (err) throw err;
 
     // respond with error if user was not found
@@ -53,7 +51,6 @@ exports.authenticate = function(req, res) {
 }
 
 exports.verify_token = function(req, res, next) {
-
   // check header or url parameters or post parameters for token
   var token = req.body.token || req.query.token || req.headers['x-access-token'];
 

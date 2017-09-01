@@ -9,8 +9,9 @@ var UserSchema = new Schema({
     Required: 'Email is required'
   },
   hash_password: {
-  	type: String,
-  	Required: 'Password is required'
+    type: String,
+    select: false,
+    Required: 'Password is required'
   }
 });
 
