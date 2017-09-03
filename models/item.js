@@ -6,7 +6,7 @@ var Schema = mongoose.Schema;
 var ItemSchema = new Schema({
   name: {
     type: String,
-    Required: 'name is required'
+    required: true
   }
 });
 
