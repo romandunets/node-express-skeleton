@@ -13,19 +13,18 @@ var tokenExpireInMinutes = configuration.key.tokenExpireInMinutes;
 exports.authenticate = function(req, res) {
 
   User.findOne({ email: req.body.email })
-  .select('+hash_password')
+  .select('+password')
   .exec(function(err, user) {
 
     if (err) throw err;
 
-    console.log(user);
     if (!user) {
       res.status(401).json({
         success: false,
         message: 'Authentication failed. User not found.'
       });
     } else if (user) {
-      bcrypt.compare(req.body.password, user.hash_password, function(err, doesMatch){
+      bcrypt.compare(req.body.password, user.password, function(err, doesMatch){
         if (doesMatch) {
           var token = jwt.sign(user, privateKey, {
             expiresIn: tokenExpireInMinutes

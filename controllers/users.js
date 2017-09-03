@@ -14,13 +14,10 @@ exports.list = function(req, res) {
 
 exports.create = function(req, res) {
   var new_user = new User(req.body);
-  bcrypt.hash(req.body.password, 10, function(err, hash_password) {
-    new_user.hash_password = hash_password;
-    new_user.save(function(err, user) {
-      if (err)
-        res.send(err);
-      res.json(user);
-    });
+  new_user.save(function(err, user) {
+    if (err)
+      res.send(err);
+    res.json(user);
   });
 };
 
@@ -33,14 +30,11 @@ exports.read = function(req, res) {
 };
 
 exports.update = function(req, res) {
-  var user_data = req.body;
-  bcrypt.hash(req.body.password, 10, function(err, hash_password) {
-    user_data.hash_password = hash_password;
-    User.findOneAndUpdate({_id: req.params.id}, user_data, {new: true}, function(err, user) {
-      if (err)
-        res.send(err);
-      res.json(user);
-    });
+  var user = req.body;
+  User.findOneAndUpdate({_id: req.params.id}, user, {new: true}, function(err, user) {
+    if (err)
+      res.send(err);
+    res.json(user);
   });
 };
 
