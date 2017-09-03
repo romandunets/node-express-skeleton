@@ -2,7 +2,6 @@
 
 var mongoose = require('mongoose');
 var jwt = require('jsonwebtoken');
-var bcrypt = require('bcrypt');
 
 var User = mongoose.model('Users');
 var configuration = require('../config/config')
@@ -24,8 +23,8 @@ exports.authenticate = function(req, res) {
         message: 'Authentication failed. User not found.'
       });
     } else if (user) {
-      bcrypt.compare(req.body.password, user.password, function(err, doesMatch){
-        if (doesMatch) {
+      user.verifyPassword(req.body.password, function(err, isMatch) {
+        if (isMatch) {
           var token = jwt.sign(user, privateKey, {
             expiresIn: tokenExpireInMinutes
           });

@@ -1,7 +1,6 @@
 'use strict';
 
 var mongoose = require('mongoose');
-var bcrypt = require('bcrypt');
 var User = mongoose.model('Users');
 
 exports.list = function(req, res) {
