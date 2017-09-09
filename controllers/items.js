@@ -13,20 +13,19 @@ exports.list = function(req, res) {
 };
 
 exports.create = function(req, res) {
-  User.findById(req.params.userId, function(err, user) {
-    if (err) res.send(err);
-
+    var user = req.locals.user;
     var item = new Item(req.body);
+
     item.owner = user;
     item.save(function(err, item) {
       if (err) res.send(err);
+
       user.items.push(item);
       user.save(function(err, item) {
         if (err) res.send(err);
         res.json(item);
       });
     });
-  });
 };
 
 exports.read = function(req, res) {
