@@ -5,7 +5,9 @@ const users = require('../../controllers/users');
 const auth  = require('../../controllers/auth');
 const items = require('./items');
 
-routes.use('/:userId/items', items);
+routes.use(auth.verify_token);
+
+routes.use('/:userId/items', users.load_user, items);
 
 routes.route('/:id')
   .all(auth.verify_token)

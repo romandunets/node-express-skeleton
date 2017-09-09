@@ -46,3 +46,12 @@ exports.delete = function(req, res) {
     res.json({ message: 'user successfully deleted' });
   });
 };
+
+exports.load_user = function (req, res, next) {
+  User.findById(req.params.userId, function (err, user) {
+    if (err) res.send(err);
+    if (!req.locals) req.locals = {};
+    req.locals.user = user;
+    next();
+  });
+};
