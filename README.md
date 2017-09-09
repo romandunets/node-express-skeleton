@@ -8,15 +8,20 @@ This project demonstrates:
  * How to organize project directory structure
  * How to organize routing for large applications
  * How to set up JWT authentification for private routes
+ * How to encrypt user passowrd in database
 
-## TODO:
- * Models validation
+## Features
+Unathorized user can only create a new user account. Every authorized user can manage his own set of items using the full set of CRUD operations.
+
+## TODO
  * Populate database automatically
  * User has many items relationship
  * Add unit tests
  * CORS problem
+ * Search
+ * Pagination
 
-## References:
+## References
  * https://www.terlici.com/2014/08/25/best-practices-express-structure.html
  * https://medium.com/@pandeysoni/user-authentication-using-jwt-json-web-token-in-node-js-using-express-framework-543151a38ea1
  * https://scotch.io/tutorials/authenticate-a-node-js-api-with-json-web-tokens

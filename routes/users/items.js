@@ -1,8 +1,8 @@
 const express = require('express');
-const routes  = express.Router();
+const routes  = express.Router({ mergeParams: true });
 
-const items = require('../controllers/items');
-const auth  = require('../controllers/auth');
+const items = require('../../controllers/items');
+const auth  = require('../../controllers/auth');
 
 routes.use(auth.verify_token);
 

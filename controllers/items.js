@@ -1,7 +1,8 @@
 'use strict';
 
 var mongoose = require('mongoose');
-var Item = mongoose.model('Items');
+var Item = mongoose.model('Item');
+var User = mongoose.model('User');
 
 exports.list = function(req, res) {
   Item.find({}, function(err, item) {
@@ -12,11 +13,15 @@ exports.list = function(req, res) {
 };
 
 exports.create = function(req, res) {
-  var new_item = new Item(req.body);
-  new_item.save(function(err, item) {
-    if (err)
-      res.send(err);
-    res.json(item);
+  User.findById(req.params.userId, function(err, user) {
+    if (err) res.send(err);
+
+    var new_item = new Item(req.body);
+    new_item.owner = user;
+    new_item.save(function(err, item) {
+      if (err) res.send(err);
+      res.json(item);
+    });
   });
 };
 

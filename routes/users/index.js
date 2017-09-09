@@ -1,8 +1,11 @@
 const express = require('express');
 const routes  = express.Router();
 
-const users = require('../controllers/users');
-const auth  = require('../controllers/auth');
+const users = require('../../controllers/users');
+const auth  = require('../../controllers/auth');
+const items = require('./items');
+
+routes.use('/:userId/items', items);
 
 routes.route('/')
   .get(auth.verify_token, users.list)
