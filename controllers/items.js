@@ -2,10 +2,9 @@
 
 var mongoose = require('mongoose');
 var Item = mongoose.model('Item');
-var User = mongoose.model('User');
 
 exports.list = function(req, res) {
-  Item.find({}, function(err, item) {
+  Item.find({ owner: req.params.userId }, function(err, item) {
     if (err)
       res.send(err);
     res.json(item);
