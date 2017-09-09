@@ -16,11 +16,15 @@ exports.create = function(req, res) {
   User.findById(req.params.userId, function(err, user) {
     if (err) res.send(err);
 
-    var new_item = new Item(req.body);
-    new_item.owner = user;
-    new_item.save(function(err, item) {
+    var item = new Item(req.body);
+    item.owner = user;
+    item.save(function(err, item) {
       if (err) res.send(err);
-      res.json(item);
+      user.items.push(item);
+      user.save(function(err, item) {
+        if (err) res.send(err);
+        res.json(item);
+      });
     });
   });
 };
