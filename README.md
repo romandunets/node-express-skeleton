@@ -13,12 +13,22 @@ This project demonstrates:
 ## Test database
 The repository already contains test database dump under `db/seeds/` directory in json format.
 
-To import the data into databse run:
+To import the data into databse run import script:
+```
+./db/import.sh
+```
+
+To import a single collection use `mongoimport`
 ```
 mongoimport --db wordlistdb --collection db/seeds/users --file users.json --jsonArray
 ```
 
-To update the dump, run
+To update the dump run export script
+```
+./db/export.sh
+```
+
+To update a single collection run `mongoexport`
 ```
 mongoexport --db wordlistdb --collection db/seeds/users --out users.json --jsonArray --pretty
 ```
