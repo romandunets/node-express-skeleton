@@ -10,6 +10,9 @@ This project demonstrates:
  * How to set up JWT authentification for private routes
  * How to encrypt user passowrd in database
 
+## Features
+Unathorized user can only create a new user account. Every authorized user can manage his own set of items using the full set of CRUD operations.
+
 ## Test database
 The repository already contains test database dump under `db/seeds/` directory in json format.
 
@@ -33,12 +36,7 @@ To update a single collection run `mongoexport`
 mongoexport --db wordlistdb --collection db/seeds/users --out users.json --jsonArray --pretty
 ```
 
-## Features
-Unathorized user can only create a new user account. Every authorized user can manage his own set of items using the full set of CRUD operations.
-
 ## TODO
- * Populate database automatically
- * User has many items relationship
  * Add unit tests
  * CORS problem
  * Search
