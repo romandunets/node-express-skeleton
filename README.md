@@ -10,6 +10,19 @@ This project demonstrates:
  * How to set up JWT authentification for private routes
  * How to encrypt user passowrd in database
 
+## Test database
+The repository already contains test database dump under `db/seeds/` directory in json format.
+
+To import the data into databse run:
+```
+mongoimport --db wordlistdb --collection db/seeds/users --file users.json --jsonArray
+```
+
+To update the dump, run
+```
+mongoexport --db wordlistdb --collection db/seeds/users --out users.json --jsonArray --pretty
+```
+
 ## Features
 Unathorized user can only create a new user account. Every authorized user can manage his own set of items using the full set of CRUD operations.
 
