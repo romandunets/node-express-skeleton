@@ -10,11 +10,9 @@ var privateKey = configuration.key.privateKey;
 var tokenExpireInMinutes = configuration.key.tokenExpireInMinutes;
 
 exports.authenticate = function(req, res) {
-
   User.findOne({ email: req.body.email })
   .select('+password')
   .exec(function(err, user) {
-
     if (err) throw err;
 
     if (!user) {
@@ -25,7 +23,7 @@ exports.authenticate = function(req, res) {
     } else if (user) {
       user.verifyPassword(req.body.password, function(err, isMatch) {
         if (isMatch) {
-          var token = jwt.sign(user, privateKey, {
+          var token = jwt.sign(user.getTokenData(), privateKey, {
             expiresIn: tokenExpireInMinutes
           });
 
@@ -56,7 +54,7 @@ exports.verify_token = function(req, res, next) {
           message: 'Failed to authenticate token.'
         });    
       } else {
-        req.decoded = decoded;
+        req.current_user = decoded;
         next();
       }
     });

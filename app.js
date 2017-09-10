@@ -8,7 +8,7 @@ const User = require('./models/user');
 const Item = require('./models/item');
 
 const config = require('./config/config');
-const db = require('./config/db');
+const db = require('./db/db');
 const routes = require('./routes');
 
 const app = express();

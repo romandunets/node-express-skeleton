@@ -34,6 +34,13 @@ UserSchema.pre('save', function(next) {
   });
 });
 
+UserSchema.methods.getTokenData = function() {
+  return {
+    id: this.id,
+    email: this.email
+  }
+};
+
 UserSchema.methods.verifyPassword = function(candidatePassword, callback) {
   bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
     if (err) return callback(err);
