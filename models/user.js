@@ -48,4 +48,10 @@ UserSchema.methods.verifyPassword = function(candidatePassword, callback) {
   });
 };
 
+// TODO: add roles
+UserSchema.methods.canRead = function(object) {
+  return object.owner && object.owner == this.user.id;
+};
+// TODO: can edit
+
 module.exports = mongoose.model('User', UserSchema);
