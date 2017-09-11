@@ -50,7 +50,7 @@ UserSchema.methods.verifyPassword = function(candidatePassword, callback) {
 
 // TODO: add roles
 UserSchema.methods.canRead = function(object) {
-  return object.owner && object.owner == this.user.id;
+  return object.id == this.id || object.owner && object.owner == this.id;
 };
 // TODO: can edit
 
