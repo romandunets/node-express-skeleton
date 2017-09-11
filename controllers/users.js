@@ -4,6 +4,7 @@ var mongoose = require('mongoose');
 var User = mongoose.model('User');
 
 exports.list = function(req, res) {
+  // TODO: return 401 if not admin
   User.find({}, function(err, user) {
     if (err)
       res.send(err);
@@ -21,6 +22,7 @@ exports.create = function(req, res) {
 };
 
 exports.read = function(req, res) {
+  // TODO: return 401 if does not have rights
   User.findById(req.params.id, function(err, user) {
     if (err)
       res.send(err);
@@ -29,6 +31,7 @@ exports.read = function(req, res) {
 };
 
 exports.update = function(req, res) {
+  // TODO: return 401 if does not have rights
   var user = req.body;
   User.findOneAndUpdate({_id: req.params.id}, user, {new: true}, function(err, user) {
     if (err)
@@ -38,6 +41,7 @@ exports.update = function(req, res) {
 };
 
 exports.delete = function(req, res) {
+  // TODO: return 401 if does not have rights
   User.remove({
     _id: req.params.id
   }, function(err, user) {

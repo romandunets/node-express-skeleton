@@ -4,11 +4,11 @@ var mongoose = require('mongoose');
 var Item = mongoose.model('Item');
 
 exports.list = function(req, res) {
-  // TODO: return 401 if requested for another user
-  if (req.current_user.id != req.params.userId)
-    return res.status(403).json({ message: 'You do not have rights to access list items of this user.' });
+  if (!req.currentUser.canRead(req.locals.user))
+    return res.status(403).send({ message: 'You do not have rights to access this resource.' });
+
   Item.find({ owner: req.params.userId }, function(err, item) {
-    if (err) res.send(err);
+    if (err) return res.send(err); // TODO: fix return
     res.json(item);
   });
 };
