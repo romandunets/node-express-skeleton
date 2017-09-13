@@ -15,8 +15,10 @@ exports.list = function(req, res) {
 
 exports.create = function(req, res) {
     var user = req.locals.user;
-    var item = new Item(req.body);
+    if (!req.currentUser.canRead(user))
+      return res.status(403).send({ message: 'You do not have rights to access this resource.' });
 
+    var item = new Item(req.body);
     item.owner = user;
     item.save(function(err, item) {
       if (err) return res.send(err);
