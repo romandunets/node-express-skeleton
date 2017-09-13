@@ -52,6 +52,9 @@ UserSchema.methods.verifyPassword = function(candidatePassword, callback) {
 UserSchema.methods.canRead = function(object) {
   return object.id == this.id || object.owner && object.owner == this.id;
 };
-// TODO: can edit
+
+UserSchema.methods.canEdit = function(object) {
+  return this.canRead(object); // can be extended later
+};
 
 module.exports = mongoose.model('User', UserSchema);
