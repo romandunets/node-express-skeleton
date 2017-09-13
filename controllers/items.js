@@ -32,7 +32,9 @@ exports.create = function(req, res) {
 };
 
 exports.read = function(req, res) {
-  // TODO: return 401 if requested item owned by another user
+  if (!req.currentUser.canRead(req.locals.user))
+    return res.status(403).send({ message: 'You do not have rights to access this resource.' });
+
   Item.findById(req.params.id, function(err, item) {
     if (err) return res.send(err);
     res.json(item);
