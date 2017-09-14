@@ -51,7 +51,8 @@ exports.update = function(req, res) {
 };
 
 exports.delete = function(req, res) {
-  // TODO: return 401 if requested item owned by another user
+  if (!req.currentUser.canEdit(user))
+    return res.status(403).send({ message: 'You do not have rights to access this resource.' });
   Item.remove({ _id: req.params.id }, function(err, item) {
     if (err) return res.send(err);
     res.json({ message: 'Item successfully deleted' });
