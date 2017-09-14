@@ -8,14 +8,14 @@ exports.list = function(req, res) {
     return res.status(403).send({ message: 'You do not have rights to access this resource.' });
 
   Item.find({ owner: req.params.userId }, function(err, item) {
-    if (err) return res.send(err); // TODO: fix return
+    if (err) return res.send(err);
     res.json(item);
   });
 };
 
 exports.create = function(req, res) {
     var user = req.locals.user;
-    if (!req.currentUser.canRead(user))
+    if (!req.currentUser.canEdit(user))
       return res.status(403).send({ message: 'You do not have rights to access this resource.' });
 
     var item = new Item(req.body);
@@ -42,7 +42,8 @@ exports.read = function(req, res) {
 };
 
 exports.update = function(req, res) {
-  // TODO: return 401 if requested item owned by another user
+  if (!req.currentUser.canEdit(user))
+    return res.status(403).send({ message: 'You do not have rights to access this resource.' });
   Item.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true }, function (err, item) {
     if (err) return res.send(err);
     res.json(item);
