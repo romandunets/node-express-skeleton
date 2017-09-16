@@ -1,6 +1,7 @@
 'use strict';
 
 var mongoose = require('mongoose');
+var response = require('../helpers/response');
 var User = mongoose.model('User');
 
 exports.list = function(req, res) {
@@ -28,10 +29,10 @@ exports.read = function(req, res) {
 };
 
 exports.update = function(req, res) {
-  // TODO: return 401 if does not have rights
   var user = req.body;
   User.findOneAndUpdate({_id: req.params.id}, user, {new: true}, function(err, user) {
     if (err) return res.send(err);
+    if (!req.currentUser.canEdit(user)) return response.sendForbidden(res);
     res.json(user);
   });
 };
