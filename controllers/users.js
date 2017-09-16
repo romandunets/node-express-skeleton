@@ -30,7 +30,7 @@ exports.read = function(req, res) {
 
 exports.update = function(req, res) {
   var user = req.body;
-  User.findOneAndUpdate({_id: req.params.id}, user, {new: true}, function(err, user) {
+  User.findOneAndUpdate({ _id: req.params.id }, user, { new: true }, function(err, user) {
     if (err) return res.send(err);
     if (!req.currentUser.canEdit(user)) return response.sendForbidden(res);
     res.json(user);
@@ -38,12 +38,10 @@ exports.update = function(req, res) {
 };
 
 exports.delete = function(req, res) {
-  // TODO: return 401 if does not have rights
-  User.remove({
-    _id: req.params.id
-  }, function(err, user) {
+  User.remove({ _id: req.params.id }, function(err, user) {
     if (err) return res.send(err);
-    res.json({ message: 'user successfully deleted' });
+    if (!req.currentUser.canEdit(user)) return response.sendForbidden(res);
+    res.json({ message: 'User successfully deleted' });
   });
 };
 
