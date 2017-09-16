@@ -42,7 +42,7 @@ exports.read = function(req, res) {
 
 exports.update = function(req, res) {
   Item.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true }, function (err, item) {
-    if (!req.currentUser.canEdit(user))
+    if (!req.currentUser.canEdit(item))
       return res.status(403).send({ message: 'You do not have rights to access this resource.' });
     if (err) return res.send(err);
     res.json(item);
@@ -51,7 +51,7 @@ exports.update = function(req, res) {
 
 exports.delete = function(req, res) {
   Item.remove({ _id: req.params.id }, function(err, item) {
-    if (!req.currentUser.canEdit(user))
+    if (!req.currentUser.canEdit(item))
       return res.status(403).send({ message: 'You do not have rights to access this resource.' });
     if (err) return res.send(err);
     res.json({ message: 'Item successfully deleted' });
