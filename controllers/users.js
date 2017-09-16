@@ -20,9 +20,9 @@ exports.create = function(req, res) {
 };
 
 exports.read = function(req, res) {
-  // TODO: return 401 if does not have rights
   User.findById(req.params.id, function(err, user) {
     if (err) return res.send(err);
+    if (!req.currentUser.canRead(user)) return response.sendForbidden(res);
     res.json(user);
   });
 };
