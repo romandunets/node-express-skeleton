@@ -32,28 +32,27 @@ exports.create = function(req, res) {
 };
 
 exports.read = function(req, res) {
-  if (!req.currentUser.canRead(req.locals.user))
-    return res.status(403).send({ message: 'You do not have rights to access this resource.' });
-
   Item.findById(req.params.id, function(err, item) {
+    if (!req.currentUser.canRead(item))
+      return res.status(403).send({ message: 'You do not have rights to access this resource.' });
     if (err) return res.send(err);
     res.json(item);
   });
 };
 
 exports.update = function(req, res) {
-  if (!req.currentUser.canEdit(user))
-    return res.status(403).send({ message: 'You do not have rights to access this resource.' });
   Item.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true }, function (err, item) {
+    if (!req.currentUser.canEdit(user))
+      return res.status(403).send({ message: 'You do not have rights to access this resource.' });
     if (err) return res.send(err);
     res.json(item);
   });
 };
 
 exports.delete = function(req, res) {
-  if (!req.currentUser.canEdit(user))
-    return res.status(403).send({ message: 'You do not have rights to access this resource.' });
   Item.remove({ _id: req.params.id }, function(err, item) {
+    if (!req.currentUser.canEdit(user))
+      return res.status(403).send({ message: 'You do not have rights to access this resource.' });
     if (err) return res.send(err);
     res.json({ message: 'Item successfully deleted' });
   });
