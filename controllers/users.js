@@ -5,7 +5,7 @@ var response = require('../helpers/response');
 var User = mongoose.model('User');
 
 exports.list = function(req, res) {
-  // TODO: return 401 if not admin
+  if (req.currentUser.role != "admin") return response.sendForbidden(res);
   User.find({}, function(err, user) {
     if (err) return res.send(err);
     res.json(user);

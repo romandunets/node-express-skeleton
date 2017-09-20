@@ -37,7 +37,6 @@ mongoexport --db wordlistdb --collection db/seeds/users --out users.json --jsonA
 ```
 
 ## TODO
- * Add roles
  * Add unit tests
  * CORS problem
  * Search
