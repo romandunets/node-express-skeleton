@@ -15,6 +15,11 @@ var UserSchema = new Schema({
     select: false,
     required: true
   },
+  role: {
+    type: String,
+    enum : ['user', 'admin'],
+    default: 'user'
+  },
   items : [{
     type: Schema.Types.ObjectId,
     ref: 'Item'
@@ -53,7 +58,8 @@ UserSchema.methods.equals = function(user) {
 };
 
 UserSchema.methods.canRead = function(object) {
-  return this.equals(object) || (object.owner && object.owner == this.id);
+  return this.equals(object) ||
+    (object.owner && object.owner == this.id);
 };
 
 UserSchema.methods.canEdit = function(object) {
