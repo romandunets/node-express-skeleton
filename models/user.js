@@ -59,7 +59,8 @@ UserSchema.methods.equals = function(user) {
 
 UserSchema.methods.canRead = function(object) {
   return this.equals(object) ||
-    (object.owner && object.owner == this.id);
+    (object.owner && object.owner == this.id) ||
+    this.role == "admin";
 };
 
 UserSchema.methods.canEdit = function(object) {
