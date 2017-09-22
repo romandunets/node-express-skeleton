@@ -39,8 +39,9 @@ mongoexport --db wordlistdb --collection db/seeds/users --out users.json --jsonA
 ## TODO
  * Add unit tests
  * CORS problem
- * Search
  * Pagination
+ * Sorting
+ * Search
 
 ## References
  * https://www.terlici.com/2014/08/25/best-practices-express-structure.html
