@@ -5,7 +5,7 @@ var response = require('../helpers/response');
 var Item = mongoose.model('Item');
 
 exports.list = function(req, res) {
-  if (!req.currentUser.canRead(req.locals.user)) return response.sendForbidden(res);
+  if (!req.currentUser.canRead(req.locals.user)) return response.sendForbidden(res); // TODO: ACL
 
   Item.find({ owner: req.params.userId }, function(err, item) {
     if (err) return res.send(err);

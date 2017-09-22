@@ -1,14 +1,12 @@
-const mongoose = require("mongoose");
-const User = require('../models/user');
+const mongoose = require('mongoose');
 
 const chai = require('chai');
 const chaiHttp = require('chai-http');
-const app = require('../app');
 const should = chai.should();
 
 chai.use(chaiHttp);
 
-describe('Users', () => {
+describe('Index', () => {
 
   describe('/GET index', () => {
     it('it should GET message ok', (done) => {
