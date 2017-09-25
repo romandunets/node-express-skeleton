@@ -9,6 +9,8 @@ This project demonstrates:
  * How to organize routing for large applications
  * How to set up JWT authentification for private routes
  * How to encrypt user passowrd in database
+ * How to manage and check user rights
+ * How to manage multi-environment configuration
 
 ## Features
 Unathorized user can only create a new user account. Every authorized user can manage his own set of items using the full set of CRUD operations.
@@ -18,23 +20,27 @@ The repository already contains test database dump under `db/seeds/` directory i
 
 To import the data into databse run import script:
 ```
-./db/import.sh
+./db/import.sh [env] (if `env` is not set, `dev` is used as a value)
 ```
 
 To import a single collection use `mongoimport`
 ```
-mongoimport --db wordlistdb --collection db/seeds/users --file users.json --jsonArray
+mongoimport --db node-express-skeleton-[env] --collection db/seeds/users --file users.json --jsonArray
 ```
 
-To update the dump run export script
+To update the dump run export script (if `env` is not set, `dev` is used as a value)
 ```
-./db/export.sh
+./db/export.sh [env]
 ```
 
 To update a single collection run `mongoexport`
 ```
-mongoexport --db wordlistdb --collection db/seeds/users --out users.json --jsonArray --pretty
+mongoexport --db node-express-skeleton-[env] --collection db/seeds/users --out users.json --jsonArray --pretty
 ```
+
+Possible values for `env`:
+ * dev - development environment (default)
+ * test - test environment
 
 ## TODO
  * Add unit tests
