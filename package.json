@@ -4,7 +4,7 @@
   "description": "Node.js wordlist application",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon app.js",
+    "start": "export NODE_ENV=dev && nodemon app.js",
     "test": "mocha --timeout 10000"
   },
   "repository": {
@@ -32,6 +32,7 @@
   "dependencies": {
     "bcrypt": "^1.0.3",
     "body-parser": "^1.17.2",
+    "config": "^1.26.2",
     "express": "^4.15.3",
     "jsonwebtoken": "^7.4.2",
     "mongoose": "^4.11.5",

@@ -3,9 +3,9 @@ module.exports = {
     port: 3000
   },
   database: {
-    url: 'mongodb://localhost/wordlistdb',
+    url: 'mongodb://localhost/node-express-skeleton-dev',
     properties: {
-        useMongoClient: true
+      useMongoClient: true
     }
   },
   key: {

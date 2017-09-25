@@ -4,10 +4,10 @@ var mongoose = require('mongoose');
 var jwt = require('jsonwebtoken');
 
 var User = mongoose.model('User');
-var configuration = require('../config/config')
+var config = require('config')
 
-var privateKey = configuration.key.privateKey;
-var tokenExpireInMinutes = configuration.key.tokenExpireInMinutes;
+var privateKey = config.key.privateKey;
+var tokenExpireInMinutes = config.key.tokenExpireInMinutes;
 
 exports.authenticate = function(req, res) {
   User.findOne({ email: req.body.email })
