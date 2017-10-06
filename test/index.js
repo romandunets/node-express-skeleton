@@ -16,8 +16,19 @@ describe('Index', () => {
           res.should.have.status(200);
           res.body.should.be.a('object');
           res.body.should.to.deep.equal({'message': 'Ok'});
-        done();
-      });
+          done();
+        });
+    });
+  });
+
+  describe('/GET unexisting page', () => {
+    it('it should return 404', (done) => {
+      chai.request('http://localhost:3000')
+        .get('/unexisting')
+        .end((err, res) => {
+          res.should.have.status(404);
+          done();
+        });
     });
   });
 
