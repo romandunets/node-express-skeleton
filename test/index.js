@@ -3,14 +3,15 @@ const mongoose = require('mongoose');
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const should = chai.should();
-
 chai.use(chaiHttp);
+
+var app = require('../app');
 
 describe('Index', () => {
 
   describe('/GET index', () => {
     it('it should GET message ok', (done) => {
-      chai.request('http://localhost:3000')
+      chai.request(app)
         .get('/')
         .end((err, res) => {
           res.should.have.status(200);
@@ -23,7 +24,7 @@ describe('Index', () => {
 
   describe('/GET unexisting page', () => {
     it('it should return 404', (done) => {
-      chai.request('http://localhost:3000')
+      chai.request(app)
         .get('/unexisting')
         .end((err, res) => {
           res.should.have.status(404);
