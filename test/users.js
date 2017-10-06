@@ -31,8 +31,12 @@ describe('Users', () => {
         .set('x-access-token', token)
         .end((err, res) => {
           res.should.have.status(200);
+          res.type.should.equal('application/json');
           res.body.should.be.a('array');
-          res.body.should.have.lengthOf(3)
+          res.body.should.have.lengthOf(3);
+          res.body[0].should.include.keys(
+            'email', 'items', 'role'
+          );
         done();
       });
     });

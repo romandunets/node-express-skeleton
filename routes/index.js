@@ -12,7 +12,7 @@ routes.get('/', (req, res) => {
 });
 
 routes.use(function(req, res) {
-  res.status(404).send({url: req.originalUrl + ' not found'})
+  res.status(404).send({ 'message': req.originalUrl + ' not found'})
 });
 
 module.exports = routes;
