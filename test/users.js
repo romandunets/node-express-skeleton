@@ -42,4 +42,21 @@ describe('Users', () => {
     });
   });
 
+  describe('/GET users', () => {
+    it('it should GET a single user if authorized', (done) => {
+      chai.request(app)
+        .get('/users/59b50d102d9f6b4110ec9a67')
+        .set('x-access-token', token)
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.type.should.equal('application/json');
+          res.body.should.be.a('object');
+          res.body.should.include.keys(
+            'email', 'items', 'role'
+          );
+        done();
+      });
+    });
+  });
+
 });
