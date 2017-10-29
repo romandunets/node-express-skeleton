@@ -12,15 +12,16 @@ var fixtures = require('pow-mongodb-fixtures').connect('mongodb://localhost/node
 
 describe('Users', () => {
 
+  var adminUser = userFixtures.users.admin;
+  var testUser = userFixtures.users.test;
   var token = '';
 
   beforeEach(function(done) {
     fixtures.clearAllAndLoad(__dirname + '/fixtures', function(err) {
-      var admin = userFixtures.users.admin;
       chai.request(app)
       .post('/authenticate')
       .type('form')
-      .send({ email: admin.email, password: admin.plainPassword })
+      .send({ email: adminUser.email, password: adminUser.plainPassword })
       .end(function(err, res) {
         var result = JSON.parse(res.text);
         token = result.token;
@@ -48,9 +49,9 @@ describe('Users', () => {
   });
 
   describe('/GET users/:id', () => {
-    it('it should get a single user if authorized', (done) => {
+    it('it should get a single user if authorized and has admin rights', (done) => {
       chai.request(app)
-        .get('/users/59b50d102d9f6b4110ec9a67')
+        .get('/users/' + testUser._id)
         .set('x-access-token', token)
         .end((err, res) => {
           res.should.have.status(200);
@@ -65,11 +66,16 @@ describe('Users', () => {
   });
 
   describe('/POST users', () => {
+    var newUser = {
+      email: 'new@mail.com',
+      password: 'password'
+    };
+
     it('it should create a new user', (done) => {
       chai.request(app)
         .post('/users')
         .type('form')
-        .send({ email: 'new@mail.com', password: 'password' }) // TODO: move
+        .send(newUser)
         .end((err, res) => {
           res.should.have.status(200);
           res.type.should.equal('application/json');
