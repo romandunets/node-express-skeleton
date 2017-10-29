@@ -7,6 +7,7 @@ const should = chai.should();
 chai.use(chaiHttp);
 
 var app = require('../app');
+var userFixtures = require('./fixtures/users');
 var fixtures = require('pow-mongodb-fixtures').connect('mongodb://localhost/node-express-skeleton-test');
 
 describe('Users', () => {
@@ -15,10 +16,11 @@ describe('Users', () => {
 
   beforeEach(function(done) {
     fixtures.clearAllAndLoad(__dirname + '/fixtures', function(err) {
+      var admin = userFixtures.users.admin;
       chai.request(app)
       .post('/authenticate')
       .type('form')
-      .send({ email: 'admin@mail.com', password: 'password' }) // TODO: move
+      .send({ email: admin.email, password: admin.plainPassword })
       .end(function(err, res) {
         var result = JSON.parse(res.text);
         token = result.token;
