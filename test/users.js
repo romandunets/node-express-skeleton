@@ -64,6 +64,35 @@ describe('Users', () => {
     });
   });
 
+  describe('/GET users', () => {
+    it('it should not list all users if is not authorized', (done) => {
+      chai.request(app)
+        .get('/users')
+        .end((err, res) => {
+          res.should.have.status(401);
+          res.type.should.equal('application/json');
+          res.body.should.be.a('object');
+          res.body.should.to.deep.equal({'success': false, 'message': 'No token provided.'});
+        done();
+      });
+    });
+  });
+
+  describe('/GET users', () => {
+    it('it should not list all users if is authorized but does not have admin rights', (done) => {
+      chai.request(app)
+        .get('/users')
+        .set('x-access-token', testUserToken)
+        .end((err, res) => {
+          res.should.have.status(403);
+          res.type.should.equal('application/json');
+          res.body.should.be.a('object');
+          res.body.should.contain({'success': false, 'message': 'You do not have rights to access this resource.'});
+        done();
+      });
+    });
+  });
+
   describe('/GET users/:id', () => {
     it('it should get a own user data if authorized', (done) => {
       chai.request(app)
