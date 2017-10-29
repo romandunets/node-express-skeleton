@@ -36,6 +36,7 @@
     "express": "^4.15.3",
     "jsonwebtoken": "^7.4.2",
     "mongoose": "^4.11.5",
-    "morgan": "^1.8.2"
+    "morgan": "^1.8.2",
+    "pow-mongodb-fixtures": "^0.14.0"
   }
 }

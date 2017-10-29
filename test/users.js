@@ -7,13 +7,15 @@ const should = chai.should();
 chai.use(chaiHttp);
 
 var app = require('../app');
+var fixtures = require('pow-mongodb-fixtures').connect('mongodb://localhost/node-express-skeleton-test');
 
 describe('Users', () => {
 
   var token = '';
 
-  before(function(done) {
-    chai.request(app)
+  beforeEach(function(done) {
+    fixtures.clearAllAndLoad(__dirname + '/fixtures', function(err) {
+      chai.request(app)
       .post('/authenticate')
       .type('form')
       .send({ email: 'admin@mail.com', password: 'password' }) // TODO: move
@@ -22,6 +24,7 @@ describe('Users', () => {
         token = result.token;
         done();
       });
+    });
   });
 
   describe('/GET users', () => {
