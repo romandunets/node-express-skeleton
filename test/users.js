@@ -200,11 +200,11 @@ describe('Users', () => {
         });
     });
 
-    it('it should not create a new user with email used by another user', (done) => {
+    it('it should not create a new user with email used by existing user', (done) => {
       chai.request(app)
         .post('/users')
         .type('form')
-        .send({ email: adminUser.email, password: adminUser.password })
+        .send({ email: testUser.email, password: testUser.plainPassword })
         .end((err, res) => {
           res.should.have.status(400);
           res.type.should.equal('application/json');
@@ -216,18 +216,17 @@ describe('Users', () => {
         });
     });
 
-    it('it should not create a new user with admin role', (done) => {
+    it('it should create a new user but ignore role field', (done) => {
       chai.request(app)
         .post('/users')
         .type('form')
         .send({ email: newUser.email, password: newUser.password, role: 'admin' })
         .end((err, res) => {
-          res.should.have.status(400);
+          res.should.have.status(200);
           res.type.should.equal('application/json');
           res.body.should.be.a('object');
-          res.body.should.contain({'success': false});
-          res.body.should.include.keys('success', 'message');
-          res.body.should.not.include.keys('email', 'items', 'role');
+          res.body.should.contain({ email: newUser.email, role: 'user' });
+          res.body.should.not.include.keys('password');
           done();
         });
     });

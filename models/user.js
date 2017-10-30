@@ -33,16 +33,19 @@ UserSchema.set('toJSON', {
 });
 
 UserSchema.pre('save', function(next) {
-  var user = this;
+  if (!this.isModified('password')) return next();
 
-  if (!user.isModified('password')) return next();
-
-  bcrypt.hash(user.password, 10, function(err, hash) {
+  bcrypt.hash(this.password, 10, function(err, hash) {
     if (err) return next(err);
 
-    user.password = hash;
+    this.password = hash;
     next();
   });
+});
+
+UserSchema.pre('save', function(next) {
+  this.role = 'user';
+  next();
 });
 
 UserSchema.methods.getTokenData = function() {
