@@ -61,9 +61,7 @@ describe('Users', () => {
         done();
       });
     });
-  });
 
-  describe('/GET users', () => {
     it('it should not list all users if is not authorized', (done) => {
       chai.request(app)
         .get('/users')
@@ -72,12 +70,11 @@ describe('Users', () => {
           res.type.should.equal('application/json');
           res.body.should.be.a('object');
           res.body.should.to.deep.equal({'success': false, 'message': 'No token provided.'});
+          res.body.should.not.include.keys('email', 'items', 'role');
         done();
       });
     });
-  });
 
-  describe('/GET users', () => {
     it('it should not list all users if is authorized but does not have admin rights', (done) => {
       chai.request(app)
         .get('/users')
@@ -87,6 +84,7 @@ describe('Users', () => {
           res.type.should.equal('application/json');
           res.body.should.be.a('object');
           res.body.should.contain({'success': false, 'message': 'You do not have rights to access this resource.'});
+          res.body.should.not.include.keys('email', 'items', 'role');
         done();
       });
     });
@@ -106,9 +104,7 @@ describe('Users', () => {
         done();
       });
     });
-  });
 
-  describe('/GET users/:id', () => {
     it('it should not get a single user data if is not authorized', (done) => {
       chai.request(app)
         .get('/users/' + adminUser._id)
@@ -117,12 +113,11 @@ describe('Users', () => {
           res.type.should.equal('application/json');
           res.body.should.be.a('object');
           res.body.should.to.deep.equal({'success': false, 'message': 'No token provided.'});
+          res.body.should.not.include.keys('email', 'items', 'role');
         done();
       });
     });
-  });
 
-  describe('/GET users/:id', () => {
     it('it should get other user data if authorized and has admin rights', (done) => {
       chai.request(app)
         .get('/users/' + testUser._id)
@@ -136,9 +131,7 @@ describe('Users', () => {
         done();
       });
     });
-  });
 
-  describe('/GET users/:id', () => {
     it('it should not get other user data if is authorized but does not have admin rights', (done) => {
       chai.request(app)
         .get('/users/' + adminUser._id)
@@ -148,6 +141,7 @@ describe('Users', () => {
           res.type.should.equal('application/json');
           res.body.should.be.a('object');
           res.body.should.contain({'success': false, 'message': 'You do not have rights to access this resource.'});
+          res.body.should.not.include.keys('email', 'items', 'role');
         done();
       });
     });
@@ -185,11 +179,12 @@ describe('Users', () => {
           res.body.should.be.a('object');
           res.body.should.contain({'success': false});
           res.body.should.include.keys('success', 'message');
+          res.body.should.not.include.keys('email', 'items', 'role');
           done();
         });
     });
 
-    it('it should not create a new user without plainPassword', (done) => {
+    it('it should not create a new user without password', (done) => {
       chai.request(app)
         .post('/users')
         .type('form')
@@ -200,6 +195,7 @@ describe('Users', () => {
           res.body.should.be.a('object');
           res.body.should.contain({'success': false});
           res.body.should.include.keys('success', 'message');
+          res.body.should.not.include.keys('email', 'items', 'role');
           done();
         });
     });
@@ -215,6 +211,7 @@ describe('Users', () => {
           res.body.should.be.a('object');
           res.body.should.contain({'success': false});
           res.body.should.include.keys('success', 'message');
+          res.body.should.not.include.keys('email', 'items', 'role');
           done();
         });
     });
@@ -230,6 +227,7 @@ describe('Users', () => {
           res.body.should.be.a('object');
           res.body.should.contain({'success': false});
           res.body.should.include.keys('success', 'message');
+          res.body.should.not.include.keys('email', 'items', 'role');
           done();
         });
     });
