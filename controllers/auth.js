@@ -11,7 +11,6 @@ var tokenExpireInMinutes = config.key.tokenExpireInMinutes;
 
 exports.authenticate = function(req, res) {
   User.findOne({ email: req.body.email })
-  .select('+password')
   .exec(function(err, user) {
     if (err) throw err;
 

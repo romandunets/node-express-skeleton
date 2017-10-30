@@ -12,7 +12,6 @@ var UserSchema = new Schema({
   },
   password: {
     type: String,
-    select: false,
     required: true
   },
   role: {
@@ -24,6 +23,13 @@ var UserSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Item'
   }]
+});
+
+UserSchema.set('toJSON', {
+  transform: function(doc, ret, options) {
+    delete ret.password;
+    return ret;
+  }
 });
 
 UserSchema.pre('save', function(next) {
