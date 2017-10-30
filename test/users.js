@@ -56,9 +56,8 @@ describe('Users', () => {
           res.type.should.equal('application/json');
           res.body.should.be.a('array');
           res.body.should.have.lengthOf(3);
-          res.body[0].should.include.keys(
-            'email', 'items', 'role'
-          );
+          res.body[0].should.include.keys('email', 'items', 'role');
+          res.body[0].should.not.include.keys('password');
         done();
       });
     });
@@ -102,9 +101,8 @@ describe('Users', () => {
           res.should.have.status(200);
           res.type.should.equal('application/json');
           res.body.should.be.a('object');
-          res.body.should.include.keys(
-            'email', 'items', 'role'
-          );
+          res.body.should.include.keys('email', 'items', 'role');
+          res.body.should.not.include.keys('password');
         done();
       });
     });
@@ -133,9 +131,8 @@ describe('Users', () => {
           res.should.have.status(200);
           res.type.should.equal('application/json');
           res.body.should.be.a('object');
-          res.body.should.include.keys(
-            'email', 'items', 'role'
-          );
+          res.body.should.include.keys('email', 'items', 'role');
+          res.body.should.not.include.keys('password');
         done();
       });
     });
@@ -171,12 +168,70 @@ describe('Users', () => {
           res.should.have.status(200);
           res.type.should.equal('application/json');
           res.body.should.be.a('object');
-          res.body.should.include.keys(
-            'email', 'items', 'role'
-          );
-        done();
-      });
+          res.body.should.contain({ email: newUser.email, role: 'user' });
+          res.body.should.not.include.keys('password');
+          done();
+        });
+    });
+
+    it('it should not create a new user without email', (done) => {
+      chai.request(app)
+        .post('/users')
+        .type('form')
+        .send({ email: '', password: newUser.password })
+        .end((err, res) => {
+          res.should.have.status(400);
+          res.type.should.equal('application/json');
+          res.body.should.be.a('object');
+          res.body.should.contain({'success': false});
+          res.body.should.include.keys('success', 'message');
+          done();
+        });
+    });
+
+    it('it should not create a new user without plainPassword', (done) => {
+      chai.request(app)
+        .post('/users')
+        .type('form')
+        .send({ email: newUser.email, password: '' })
+        .end((err, res) => {
+          res.should.have.status(400);
+          res.type.should.equal('application/json');
+          res.body.should.be.a('object');
+          res.body.should.contain({'success': false});
+          res.body.should.include.keys('success', 'message');
+          done();
+        });
+    });
+
+    it('it should not create a new user with email used by another user', (done) => {
+      chai.request(app)
+        .post('/users')
+        .type('form')
+        .send({ email: adminUser.email, password: adminUser.password })
+        .end((err, res) => {
+          res.should.have.status(400);
+          res.type.should.equal('application/json');
+          res.body.should.be.a('object');
+          res.body.should.contain({'success': false});
+          res.body.should.include.keys('success', 'message');
+          done();
+        });
+    });
+
+    it('it should not create a new user with admin role', (done) => {
+      chai.request(app)
+        .post('/users')
+        .type('form')
+        .send({ email: newUser.email, password: newUser.password, role: 'admin' })
+        .end((err, res) => {
+          res.should.have.status(400);
+          res.type.should.equal('application/json');
+          res.body.should.be.a('object');
+          res.body.should.contain({'success': false});
+          res.body.should.include.keys('success', 'message');
+          done();
+        });
     });
   });
-
 });
