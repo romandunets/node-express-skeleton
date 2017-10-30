@@ -12,18 +12,18 @@ exports.list = function(req, res) {
   });
 };
 
-exports.create = function(req, res) {
-  var new_user = new User(req.body);
-  new_user.save(function(err, user) {
-    if (err) return res.send(err);
-    res.json(user);
-  });
-};
-
 exports.read = function(req, res) {
   User.findById(req.params.id, function(err, user) {
     if (err) return res.send(err);
     if (!req.currentUser.canRead(user)) return response.sendForbidden(res);
+    res.json(user);
+  });
+};
+
+exports.create = function(req, res) {
+  var new_user = new User(req.body);
+  new_user.save(function(err, user) {
+    if (err) return response.sendBadRequest(res, err);
     res.json(user);
   });
 };
