@@ -14,7 +14,7 @@ exports.list = function(req, res) {
 
 exports.read = function(req, res) {
   User.findById(req.params.id, function(err, user) {
-    if (err) return res.send(err);
+    if (err) return response.sendNotFound(res);
     if (!req.currentUser.canRead(user)) return response.sendForbidden(res);
     res.json(user);
   });

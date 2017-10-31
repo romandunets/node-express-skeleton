@@ -120,7 +120,7 @@ describe('Users', () => {
 
     it('it should return not found error if user id does not exist', (done) => {
       chai.request(app)
-        .get('/users/' + adminUser._id)
+        .get('/users/5432645363456')
         .set('x-access-token', adminUserToken)
         .end((err, res) => {
           res.should.have.status(404);

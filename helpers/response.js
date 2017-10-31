@@ -1,3 +1,10 @@
+exports.sendBadRequest = function(res, message) {
+  return res.status(400).send({
+    success: false,
+    message: message
+  });
+};
+
 exports.sendForbidden = function(res) {
   return res.status(403).send({ 
     success: false,
@@ -5,9 +12,9 @@ exports.sendForbidden = function(res) {
   });
 };
 
-exports.sendBadRequest = function(res, message) {
-  return res.status(400).send({
+exports.sendNotFound = function(res) {
+  return res.status(404).send({
     success: false,
-    message: message
+    message: 'Resource not found.'
   });
 };
