@@ -118,6 +118,20 @@ describe('Users', () => {
       });
     });
 
+    it('it should return not found error if user id does not exist', (done) => {
+      chai.request(app)
+        .get('/users/' + adminUser._id)
+        .set('x-access-token', adminUserToken)
+        .end((err, res) => {
+          res.should.have.status(404);
+          res.type.should.equal('application/json');
+          res.body.should.be.a('object');
+          res.body.should.contain({'success': false, 'message': 'Resource not found.'});
+          res.body.should.not.include.keys('email', 'items', 'role');
+        done();
+      });
+    });
+
     it('it should get other user data if authorized and has admin rights', (done) => {
       chai.request(app)
         .get('/users/' + testUser._id)
