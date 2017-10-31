@@ -231,4 +231,69 @@ describe('Users', () => {
         });
     });
   });
+
+  describe('/PUT users', () => {
+    it('it should update own user data if is authorized', (done) => {
+      chai.request(app)
+        .put('/users/' + adminUser._id)
+        .set('x-access-token', adminUserToken)
+        .type('form')
+        .send({ email: 'new@mail.com' })
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.type.should.equal('application/json');
+          res.body.should.be.a('object');
+          res.body.should.contain({ email: 'new@mail.com' });
+          res.body.should.not.include.keys('password');
+          done();
+        });
+    });
+
+    it('it should not update user data if is not authorized', (done) => {
+      chai.request(app)
+        .put('/users/' + adminUser._id)
+        .type('form')
+        .send({ email: 'new@mail.com' })
+        .end((err, res) => {
+          res.should.have.status(401);
+          res.type.should.equal('application/json');
+          res.body.should.be.a('object');
+          res.body.should.to.deep.equal({'success': false, 'message': 'No token provided.'});
+          res.body.should.not.include.keys('email', 'items', 'role');
+          done();
+        });
+    });
+
+    it('it should update an existing user if is authorized and has admin rights', (done) => {
+      chai.request(app)
+        .put('/users/' + testUser._id)
+        .set('x-access-token', adminUserToken)
+        .type('form')
+        .send({ email: 'new@mail.com' })
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.type.should.equal('application/json');
+          res.body.should.be.a('object');
+          res.body.should.contain({ email: 'new@mail.com' });
+          res.body.should.not.include.keys('password');
+          done();
+        });
+    });
+
+    it('it should not update an existing user if is authorized but does not have admin rights', (done) => {
+      chai.request(app)
+        .put('/users/' + adminUser._id)
+        .set('x-access-token', testUserToken)
+        .type('form')
+        .send({ email: 'new@mail.com' })
+        .end((err, res) => {
+          res.should.have.status(403);
+          res.type.should.equal('application/json');
+          res.body.should.be.a('object');
+          res.body.should.contain({'success': false, 'message': 'You do not have rights to access this resource.'});
+          res.body.should.not.include.keys('email', 'items', 'role');
+          done();
+        });
+    });
+  });
 });
