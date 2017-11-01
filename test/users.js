@@ -257,7 +257,7 @@ describe('Users', () => {
           res.should.have.status(200);
           res.type.should.equal('application/json');
           res.body.should.be.a('object');
-          res.body.should.contain({ email: 'new@mail.com' });
+          res.body.should.contain({ email: 'new@mail.com', role: 'admin' });
           res.body.should.not.include.keys('password');
           done();
         });
@@ -288,7 +288,7 @@ describe('Users', () => {
           res.should.have.status(200);
           res.type.should.equal('application/json');
           res.body.should.be.a('object');
-          res.body.should.contain({ email: 'new@mail.com' });
+          res.body.should.contain({ email: 'new@mail.com', role: 'user' });
           res.body.should.not.include.keys('password');
           done();
         });
@@ -306,6 +306,73 @@ describe('Users', () => {
           res.body.should.be.a('object');
           res.body.should.contain({'success': false, 'message': 'You do not have rights to access this resource.'});
           res.body.should.not.include.keys('email', 'items', 'role');
+          done();
+        });
+    });
+
+    it('it should not update user data with empty email', (done) => {
+      chai.request(app)
+        .put('/users/' + adminUser._id)
+        .set('x-access-token', adminUserToken)
+        .type('form')
+        .send({ email: '' })
+        .end((err, res) => {
+          res.should.have.status(400);
+          res.type.should.equal('application/json');
+          res.body.should.be.a('object');
+          res.body.should.contain({'success': false});
+          res.body.should.include.keys('success', 'message');
+          res.body.should.not.include.keys('email', 'items', 'role');
+          done();
+        });
+    });
+
+    it('it should not update user data with empty password', (done) => {
+      chai.request(app)
+        .put('/users/' + adminUser._id)
+        .set('x-access-token', adminUserToken)
+        .type('form')
+        .send({ password: '' })
+        .end((err, res) => {
+          res.should.have.status(400);
+          res.type.should.equal('application/json');
+          res.body.should.be.a('object');
+          res.body.should.contain({'success': false});
+          res.body.should.include.keys('success', 'message');
+          res.body.should.not.include.keys('email', 'items', 'role');
+          done();
+        });
+    });
+
+    it('it should not update user data with email used by existing user', (done) => {
+      chai.request(app)
+        .put('/users/' + adminUser._id)
+        .set('x-access-token', adminUserToken)
+        .type('form')
+        .send({ email: testUser.email, password: testUser.plainPassword })
+        .end((err, res) => {
+          res.should.have.status(400);
+          res.type.should.equal('application/json');
+          res.body.should.be.a('object');
+          res.body.should.contain({'success': false});
+          res.body.should.include.keys('success', 'message');
+          res.body.should.not.include.keys('email', 'items', 'role');
+          done();
+        });
+    });
+
+    it('it should update a new user but ignore role field', (done) => {
+      chai.request(app)
+        .put('/users/' + testUser._id)
+        .set('x-access-token', testUserToken)
+        .type('form')
+        .send({ role: 'admin' })
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.type.should.equal('application/json');
+          res.body.should.be.a('object');
+          res.body.should.contain({ email: testUser.email, role: 'user' });
+          res.body.should.not.include.keys('password');
           done();
         });
     });
