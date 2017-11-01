@@ -246,7 +246,7 @@ describe('Users', () => {
     });
   });
 
-  describe('/PUT users', () => {
+  describe('/PUT users/:id', () => {
     it('it should update own user data if is authorized', (done) => {
       chai.request(app)
         .put('/users/' + adminUser._id)
@@ -373,6 +373,67 @@ describe('Users', () => {
           res.body.should.be.a('object');
           res.body.should.contain({ email: testUser.email, role: 'user' });
           res.body.should.not.include.keys('password');
+          done();
+        });
+    });
+  });
+
+  describe('/DELETE user/:id', () => {
+    it('it should delete own user data if is authorized', (done) => {
+      chai.request(app)
+        .delete('/users/' + adminUser._id)
+        .set('x-access-token', adminUserToken)
+        .send()
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.type.should.equal('application/json');
+          res.body.should.be.a('object');
+          res.body.should.contain({ message: 'User successfully deleted' });
+          res.body.should.not.include.keys('email', 'items', 'role', 'password');
+          done();
+        });
+    });
+
+    it('it should not delete user data if is not authorized', (done) => {
+      chai.request(app)
+        .delete('/users/' + adminUser._id)
+        .send()
+        .end((err, res) => {
+          res.should.have.status(401);
+          res.type.should.equal('application/json');
+          res.body.should.be.a('object');
+          res.body.should.to.deep.equal({'success': false, 'message': 'No token provided.'});
+          res.body.should.not.include.keys('email', 'items', 'role');
+          done();
+        });
+    });
+
+    it('it should delete other user data if is authorized and has admin rights', (done) => {
+      chai.request(app)
+        .delete('/users/' + testUser._id)
+        .set('x-access-token', adminUserToken)
+        .send()
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.type.should.equal('application/json');
+          res.body.should.be.a('object');
+          res.body.should.contain({ message: 'User successfully deleted' });
+          res.body.should.not.include.keys('email', 'items', 'role', 'password');
+          done();
+        });
+    });
+
+    it('it should not delete other user data if is authorized but does not have admin rights', (done) => {
+      chai.request(app)
+        .delete('/users/' + adminUser._id)
+        .set('x-access-token', testUserToken)
+        .send()
+        .end((err, res) => {
+          res.should.have.status(403);
+          res.type.should.equal('application/json');
+          res.body.should.be.a('object');
+          res.body.should.contain({'success': false, 'message': 'You do not have rights to access this resource.'});
+          res.body.should.not.include.keys('email', 'items', 'role');
           done();
         });
     });
