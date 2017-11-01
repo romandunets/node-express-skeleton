@@ -43,11 +43,6 @@ UserSchema.pre('save', function(next) {
   });
 });
 
-UserSchema.pre('save', function(next) {
-  this.role = 'user';
-  next();
-});
-
 UserSchema.methods.getTokenData = function() {
   return {
     id: this.id,
@@ -63,7 +58,7 @@ UserSchema.methods.verifyPassword = function(candidatePassword, callback) {
 };
 
 UserSchema.methods.equals = function(user) {
-  return this.id == user.id && this.email == user.email;
+  return this._id == user._id;
 };
 
 UserSchema.methods.canRead = function(object) {
