@@ -78,10 +78,7 @@ describe('Users', () => {
         .get('/users')
         .set('x-access-token', testUserToken)
         .end((err, res) => {
-          res.should.have.status(403);
-          res.type.should.equal('application/json');
-          res.body.should.be.a('object');
-          res.body.should.contain({'success': false, 'message': 'You do not have rights to access this resource.'});
+          test.assertForbidden(err, res);
           res.body.should.not.include.keys('email', 'items', 'role');
         done();
       });
@@ -146,10 +143,7 @@ describe('Users', () => {
         .get('/users/' + adminUser._id)
         .set('x-access-token', testUserToken)
         .end((err, res) => {
-          res.should.have.status(403);
-          res.type.should.equal('application/json');
-          res.body.should.be.a('object');
-          res.body.should.contain({'success': false, 'message': 'You do not have rights to access this resource.'});
+          test.assertForbidden(err, res);
           res.body.should.not.include.keys('email', 'items', 'role');
         done();
       });
@@ -281,10 +275,7 @@ describe('Users', () => {
         .type('form')
         .send({ email: 'new@mail.com' })
         .end((err, res) => {
-          res.should.have.status(403);
-          res.type.should.equal('application/json');
-          res.body.should.be.a('object');
-          res.body.should.contain({'success': false, 'message': 'You do not have rights to access this resource.'});
+          test.assertForbidden(err, res);
           res.body.should.not.include.keys('email', 'items', 'role');
           done();
         });
@@ -394,10 +385,7 @@ describe('Users', () => {
         .set('x-access-token', testUserToken)
         .send()
         .end((err, res) => {
-          res.should.have.status(403);
-          res.type.should.equal('application/json');
-          res.body.should.be.a('object');
-          res.body.should.contain({'success': false, 'message': 'You do not have rights to access this resource.'});
+          test.assertForbidden(err, res);
           res.body.should.not.include.keys('email', 'items', 'role');
           done();
         });
