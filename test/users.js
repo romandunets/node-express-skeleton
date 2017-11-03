@@ -183,11 +183,7 @@ describe('Users', () => {
         .type('form')
         .send({ email: '', password: newUser.password })
         .end((err, res) => {
-          res.should.have.status(400);
-          res.type.should.equal('application/json');
-          res.body.should.be.a('object');
-          res.body.should.contain({'success': false});
-          res.body.should.include.keys('success', 'message');
+          test.assertBadRequest(err, res);
           res.body.should.not.include.keys('email', 'items', 'role');
           done();
         });
@@ -199,11 +195,7 @@ describe('Users', () => {
         .type('form')
         .send({ email: newUser.email, password: '' })
         .end((err, res) => {
-          res.should.have.status(400);
-          res.type.should.equal('application/json');
-          res.body.should.be.a('object');
-          res.body.should.contain({'success': false});
-          res.body.should.include.keys('success', 'message');
+          test.assertBadRequest(err, res);
           res.body.should.not.include.keys('email', 'items', 'role');
           done();
         });
@@ -215,11 +207,7 @@ describe('Users', () => {
         .type('form')
         .send({ email: testUser.email, password: testUser.plainPassword })
         .end((err, res) => {
-          res.should.have.status(400);
-          res.type.should.equal('application/json');
-          res.body.should.be.a('object');
-          res.body.should.contain({'success': false});
-          res.body.should.include.keys('success', 'message');
+          test.assertBadRequest(err, res);
           res.body.should.not.include.keys('email', 'items', 'role');
           done();
         });
@@ -309,11 +297,7 @@ describe('Users', () => {
         .type('form')
         .send({ email: '' })
         .end((err, res) => {
-          res.should.have.status(400);
-          res.type.should.equal('application/json');
-          res.body.should.be.a('object');
-          res.body.should.contain({'success': false});
-          res.body.should.include.keys('success', 'message');
+          test.assertBadRequest(err, res);
           res.body.should.not.include.keys('email', 'items', 'role');
           done();
         });
@@ -326,11 +310,7 @@ describe('Users', () => {
         .type('form')
         .send({ password: '' })
         .end((err, res) => {
-          res.should.have.status(400);
-          res.type.should.equal('application/json');
-          res.body.should.be.a('object');
-          res.body.should.contain({'success': false});
-          res.body.should.include.keys('success', 'message');
+          test.assertBadRequest(err, res);
           res.body.should.not.include.keys('email', 'items', 'role');
           done();
         });
@@ -343,11 +323,7 @@ describe('Users', () => {
         .type('form')
         .send({ email: testUser.email, password: testUser.plainPassword })
         .end((err, res) => {
-          res.should.have.status(400);
-          res.type.should.equal('application/json');
-          res.body.should.be.a('object');
-          res.body.should.contain({'success': false});
-          res.body.should.include.keys('success', 'message');
+          test.assertBadRequest(err, res);
           res.body.should.not.include.keys('email', 'items', 'role');
           done();
         });
