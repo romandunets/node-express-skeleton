@@ -7,6 +7,7 @@ const should = chai.should();
 chai.use(chaiHttp);
 
 var app = require('../app');
+var test = require('../helpers/test');
 var userFixtures = require('./fixtures/users');
 var fixtures = require('pow-mongodb-fixtures').connect('mongodb://localhost/node-express-skeleton-test');
 
@@ -66,10 +67,7 @@ describe('Users', () => {
       chai.request(app)
         .get('/users')
         .end((err, res) => {
-          res.should.have.status(401);
-          res.type.should.equal('application/json');
-          res.body.should.be.a('object');
-          res.body.should.to.deep.equal({'success': false, 'message': 'No token provided.'});
+          test.assertNotAuthorized(err, res);
           res.body.should.not.include.keys('email', 'items', 'role');
         done();
       });
@@ -109,10 +107,7 @@ describe('Users', () => {
       chai.request(app)
         .get('/users/' + adminUser._id)
         .end((err, res) => {
-          res.should.have.status(401);
-          res.type.should.equal('application/json');
-          res.body.should.be.a('object');
-          res.body.should.to.deep.equal({'success': false, 'message': 'No token provided.'});
+          test.assertNotAuthorized(err, res);
           res.body.should.not.include.keys('email', 'items', 'role');
         done();
       });
@@ -269,10 +264,7 @@ describe('Users', () => {
         .type('form')
         .send({ email: 'new@mail.com' })
         .end((err, res) => {
-          res.should.have.status(401);
-          res.type.should.equal('application/json');
-          res.body.should.be.a('object');
-          res.body.should.to.deep.equal({'success': false, 'message': 'No token provided.'});
+          test.assertNotAuthorized(err, res);
           res.body.should.not.include.keys('email', 'items', 'role');
           done();
         });
@@ -399,10 +391,7 @@ describe('Users', () => {
         .delete('/users/' + adminUser._id)
         .send()
         .end((err, res) => {
-          res.should.have.status(401);
-          res.type.should.equal('application/json');
-          res.body.should.be.a('object');
-          res.body.should.to.deep.equal({'success': false, 'message': 'No token provided.'});
+          test.assertNotAuthorized(err, res);
           res.body.should.not.include.keys('email', 'items', 'role');
           done();
         });
