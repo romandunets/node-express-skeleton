@@ -7,7 +7,7 @@ const should = chai.should();
 chai.use(chaiHttp);
 
 var app = require('../app');
-var test = require('../helpers/test');
+var responseHelper = require('./helpers/response');
 var userFixtures = require('./fixtures/users');
 var fixtures = require('pow-mongodb-fixtures').connect('mongodb://localhost/node-express-skeleton-test');
 
@@ -67,7 +67,7 @@ describe('Users', () => {
       chai.request(app)
         .get('/users')
         .end((err, res) => {
-          test.assertNotAuthorized(err, res);
+          responseHelper.assertNotAuthorized(err, res);
           res.body.should.not.include.keys('email', 'items', 'role');
         done();
       });
@@ -78,7 +78,7 @@ describe('Users', () => {
         .get('/users')
         .set('x-access-token', testUserToken)
         .end((err, res) => {
-          test.assertForbidden(err, res);
+          responseHelper.assertForbidden(err, res);
           res.body.should.not.include.keys('email', 'items', 'role');
         done();
       });
@@ -104,7 +104,7 @@ describe('Users', () => {
       chai.request(app)
         .get('/users/' + adminUser._id)
         .end((err, res) => {
-          test.assertNotAuthorized(err, res);
+          responseHelper.assertNotAuthorized(err, res);
           res.body.should.not.include.keys('email', 'items', 'role');
         done();
       });
@@ -115,7 +115,7 @@ describe('Users', () => {
         .get('/users/5432645363456')
         .set('x-access-token', adminUserToken)
         .end((err, res) => {
-          test.assertNotFound(err, res);
+          responseHelper.assertNotFound(err, res);
           res.body.should.not.include.keys('email', 'items', 'role');
         done();
       });
@@ -140,7 +140,7 @@ describe('Users', () => {
         .get('/users/' + adminUser._id)
         .set('x-access-token', testUserToken)
         .end((err, res) => {
-          test.assertForbidden(err, res);
+          responseHelper.assertForbidden(err, res);
           res.body.should.not.include.keys('email', 'items', 'role');
         done();
       });
@@ -174,7 +174,7 @@ describe('Users', () => {
         .type('form')
         .send({ email: '', password: newUser.password })
         .end((err, res) => {
-          test.assertBadRequest(err, res);
+          responseHelper.assertBadRequest(err, res);
           res.body.should.not.include.keys('email', 'items', 'role');
           done();
         });
@@ -186,7 +186,7 @@ describe('Users', () => {
         .type('form')
         .send({ email: newUser.email, password: '' })
         .end((err, res) => {
-          test.assertBadRequest(err, res);
+          responseHelper.assertBadRequest(err, res);
           res.body.should.not.include.keys('email', 'items', 'role');
           done();
         });
@@ -198,7 +198,7 @@ describe('Users', () => {
         .type('form')
         .send({ email: testUser.email, password: testUser.plainPassword })
         .end((err, res) => {
-          test.assertBadRequest(err, res);
+          responseHelper.assertBadRequest(err, res);
           res.body.should.not.include.keys('email', 'items', 'role');
           done();
         });
@@ -243,7 +243,7 @@ describe('Users', () => {
         .type('form')
         .send({ email: 'new@mail.com' })
         .end((err, res) => {
-          test.assertNotAuthorized(err, res);
+          responseHelper.assertNotAuthorized(err, res);
           res.body.should.not.include.keys('email', 'items', 'role');
           done();
         });
@@ -272,7 +272,7 @@ describe('Users', () => {
         .type('form')
         .send({ email: 'new@mail.com' })
         .end((err, res) => {
-          test.assertForbidden(err, res);
+          responseHelper.assertForbidden(err, res);
           res.body.should.not.include.keys('email', 'items', 'role');
           done();
         });
@@ -285,7 +285,7 @@ describe('Users', () => {
         .type('form')
         .send({ email: '' })
         .end((err, res) => {
-          test.assertBadRequest(err, res);
+          responseHelper.assertBadRequest(err, res);
           res.body.should.not.include.keys('email', 'items', 'role');
           done();
         });
@@ -298,7 +298,7 @@ describe('Users', () => {
         .type('form')
         .send({ password: '' })
         .end((err, res) => {
-          test.assertBadRequest(err, res);
+          responseHelper.assertBadRequest(err, res);
           res.body.should.not.include.keys('email', 'items', 'role');
           done();
         });
@@ -311,7 +311,7 @@ describe('Users', () => {
         .type('form')
         .send({ email: testUser.email, password: testUser.plainPassword })
         .end((err, res) => {
-          test.assertBadRequest(err, res);
+          responseHelper.assertBadRequest(err, res);
           res.body.should.not.include.keys('email', 'items', 'role');
           done();
         });
@@ -355,7 +355,7 @@ describe('Users', () => {
         .delete('/users/' + adminUser._id)
         .send()
         .end((err, res) => {
-          test.assertNotAuthorized(err, res);
+          responseHelper.assertNotAuthorized(err, res);
           res.body.should.not.include.keys('email', 'items', 'role');
           done();
         });
@@ -382,7 +382,7 @@ describe('Users', () => {
         .set('x-access-token', testUserToken)
         .send()
         .end((err, res) => {
-          test.assertForbidden(err, res);
+          responseHelper.assertForbidden(err, res);
           res.body.should.not.include.keys('email', 'items', 'role');
           done();
         });
