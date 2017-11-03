@@ -115,10 +115,7 @@ describe('Users', () => {
         .get('/users/5432645363456')
         .set('x-access-token', adminUserToken)
         .end((err, res) => {
-          res.should.have.status(404);
-          res.type.should.equal('application/json');
-          res.body.should.be.a('object');
-          res.body.should.contain({'success': false, 'message': 'Resource not found.'});
+          test.assertNotFound(err, res);
           res.body.should.not.include.keys('email', 'items', 'role');
         done();
       });

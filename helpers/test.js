@@ -19,3 +19,10 @@ exports.assertForbidden = function(err, res) {
   res.body.should.be.a('object');
   res.body.should.contain({'success': false, 'message': 'You do not have rights to access this resource.'});
 }
+
+exports.assertNotFound = function(err, res) {
+  res.should.have.status(404);
+  res.type.should.equal('application/json');
+  res.body.should.be.a('object');
+  res.body.should.contain({'success': false, 'message': 'Resource not found.'});
+}
