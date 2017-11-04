@@ -8,6 +8,7 @@ chai.use(chaiHttp);
 
 var app = require('../app');
 var responseHelper = require('./helpers/response');
+var userHelper = require('./helpers/user');
 var userFixtures = require('./fixtures/users');
 var fixtures = require('pow-mongodb-fixtures').connect('mongodb://localhost/node-express-skeleton-test');
 
@@ -91,12 +92,8 @@ describe('Users', () => {
         .get('/users/' + adminUser._id)
         .set('x-access-token', adminUserToken)
         .end((err, res) => {
-          res.should.have.status(200);
-          res.type.should.equal('application/json');
-          res.body.should.be.a('object');
-          res.body.should.include.keys('email', 'items', 'role');
-          res.body.should.not.include.keys('password');
-        done();
+          userHelper.assertUser(res, adminUser);
+          done();
       });
     });
 
@@ -126,13 +123,9 @@ describe('Users', () => {
         .get('/users/' + testUser._id)
         .set('x-access-token', adminUserToken)
         .end((err, res) => {
-          res.should.have.status(200);
-          res.type.should.equal('application/json');
-          res.body.should.be.a('object');
-          res.body.should.include.keys('email', 'items', 'role');
-          res.body.should.not.include.keys('password');
-        done();
-      });
+          userHelper.assertUser(res, testUser);
+          done();
+        });
     });
 
     it('it should not get other user data if is authorized but does not have admin rights', (done) => {
@@ -159,11 +152,7 @@ describe('Users', () => {
         .type('form')
         .send(newUser)
         .end((err, res) => {
-          res.should.have.status(200);
-          res.type.should.equal('application/json');
-          res.body.should.be.a('object');
-          res.body.should.contain({ email: newUser.email, role: 'user' });
-          res.body.should.not.include.keys('password');
+          userHelper.assertUser(res, { email: newUser.email, role: 'user' });
           done();
         });
     });
@@ -210,11 +199,7 @@ describe('Users', () => {
         .type('form')
         .send({ email: newUser.email, password: newUser.password, role: 'admin' })
         .end((err, res) => {
-          res.should.have.status(200);
-          res.type.should.equal('application/json');
-          res.body.should.be.a('object');
-          res.body.should.contain({ email: newUser.email, role: 'user' });
-          res.body.should.not.include.keys('password');
+          userHelper.assertUser(res, { email: newUser.email, role: 'user' });
           done();
         });
     });
@@ -228,11 +213,7 @@ describe('Users', () => {
         .type('form')
         .send({ email: 'new@mail.com' })
         .end((err, res) => {
-          res.should.have.status(200);
-          res.type.should.equal('application/json');
-          res.body.should.be.a('object');
-          res.body.should.contain({ email: 'new@mail.com', role: 'admin' });
-          res.body.should.not.include.keys('password');
+          userHelper.assertUser(res, { email: 'new@mail.com', role: 'admin' });
           done();
         });
     });
@@ -256,11 +237,7 @@ describe('Users', () => {
         .type('form')
         .send({ email: 'new@mail.com' })
         .end((err, res) => {
-          res.should.have.status(200);
-          res.type.should.equal('application/json');
-          res.body.should.be.a('object');
-          res.body.should.contain({ email: 'new@mail.com', role: 'user' });
-          res.body.should.not.include.keys('password');
+          userHelper.assertUser(res, { email: 'new@mail.com', role: 'user' });
           done();
         });
     });
@@ -324,11 +301,7 @@ describe('Users', () => {
         .type('form')
         .send({ role: 'admin' })
         .end((err, res) => {
-          res.should.have.status(200);
-          res.type.should.equal('application/json');
-          res.body.should.be.a('object');
-          res.body.should.contain({ email: testUser.email, role: 'user' });
-          res.body.should.not.include.keys('password');
+          userHelper.assertUser(res, testUser);
           done();
         });
     });
