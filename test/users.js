@@ -180,18 +180,6 @@ describe('Users', () => {
         });
     });
 
-    it('it should not create a new user with email used by existing user', (done) => {
-      chai.request(app)
-        .post('/users')
-        .type('form')
-        .send({ email: testUser.email, password: testUser.plainPassword })
-        .end((err, res) => {
-          responseHelper.assertBadRequest(err, res);
-          res.body.should.not.include.keys('email', 'items', 'role');
-          done();
-        });
-    });
-
     it('it should create a new user but ignore role field', (done) => {
       chai.request(app)
         .post('/users')
@@ -273,19 +261,6 @@ describe('Users', () => {
         .set('x-access-token', adminUserToken)
         .type('form')
         .send({ password: '' })
-        .end((err, res) => {
-          responseHelper.assertBadRequest(err, res);
-          res.body.should.not.include.keys('email', 'items', 'role');
-          done();
-        });
-    });
-
-    it('it should not update user data with email used by existing user', (done) => {
-      chai.request(app)
-        .put('/users/' + adminUser._id)
-        .set('x-access-token', adminUserToken)
-        .type('form')
-        .send({ email: testUser.email, password: testUser.plainPassword })
         .end((err, res) => {
           responseHelper.assertBadRequest(err, res);
           res.body.should.not.include.keys('email', 'items', 'role');
