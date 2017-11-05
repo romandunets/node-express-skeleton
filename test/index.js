@@ -6,6 +6,7 @@ const should = chai.should();
 chai.use(chaiHttp);
 
 var app = require('../app');
+var responseHelper = require('./helpers/response');
 
 describe('Index', () => {
 
@@ -29,10 +30,7 @@ describe('Index', () => {
       chai.request(app)
         .get('/unexisting')
         .end((err, res) => {
-          res.should.have.status(404);
-          res.type.should.equal('application/json');
-          res.body.should.be.a('object');
-          res.body.should.to.deep.equal({'message': '/unexisting not found'});
+          responseHelper.assertNotFound(err, res);
           done();
         });
     });

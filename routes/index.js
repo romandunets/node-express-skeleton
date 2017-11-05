@@ -4,6 +4,8 @@ const routes  = express.Router();
 const auth  = require('./auth');
 const users = require('./users');
 
+var response = require('../helpers/response');
+
 routes.use('/', auth);
 routes.use('/users', users);
 
@@ -12,7 +14,7 @@ routes.get('/', (req, res) => {
 });
 
 routes.use(function(req, res) {
-  res.status(404).send({ 'message': req.originalUrl + ' not found'})
+  response.sendNotFound(res);
 });
 
 module.exports = routes;
