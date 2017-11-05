@@ -15,11 +15,7 @@ describe('Index', () => {
       chai.request(app)
         .get('/')
         .end((err, res) => {
-          should.not.exist(err);
-          res.should.have.status(200);
-          res.type.should.equal('application/json');
-          res.body.should.be.a('object');
-          res.body.should.to.deep.equal({'message': 'Ok'});
+          responseHelper.assertObject(res, {'message': 'Ok'});
           done();
         });
     });
