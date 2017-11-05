@@ -314,11 +314,7 @@ describe('Users', () => {
         .set('x-access-token', adminUserToken)
         .send()
         .end((err, res) => {
-          res.should.have.status(200);
-          res.type.should.equal('application/json');
-          res.body.should.be.a('object');
-          res.body.should.contain({ message: 'User successfully deleted' });
-          res.body.should.not.include.keys('email', 'items', 'role', 'password');
+          userHelper.assertDoesNotContainUserData(res, 'User successfully deleted');
           done();
         });
     });
@@ -340,11 +336,7 @@ describe('Users', () => {
         .set('x-access-token', adminUserToken)
         .send()
         .end((err, res) => {
-          res.should.have.status(200);
-          res.type.should.equal('application/json');
-          res.body.should.be.a('object');
-          res.body.should.contain({ message: 'User successfully deleted' });
-          res.body.should.not.include.keys('email', 'items', 'role', 'password');
+          userHelper.assertDoesNotContainUserData(res, 'User successfully deleted');
           done();
         });
     });
