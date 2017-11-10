@@ -42,7 +42,7 @@ exports.authenticate = function(req, res) {
   });
 }
 
-exports.verify_token = function(req, res, next) {
+exports.verifyToken = function(req, res, next) {
   var token = req.body.token || req.query.token || req.headers['x-access-token'];
 
   if (token) {

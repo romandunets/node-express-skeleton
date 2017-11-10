@@ -5,16 +5,16 @@ const users = require('../../controllers/users');
 const auth  = require('../../controllers/auth');
 const items = require('./items');
 
-routes.use('/:userId/items', users.load_user, items);
+routes.use('/:userId/items', users.loadUser, items);
 
 routes.route('/:id')
-  .all(auth.verify_token)
+  .all(auth.verifyToken)
   .get(users.read)
   .put(users.update)
   .delete(users.delete);
 
 routes.route('/')
-  .get(auth.verify_token, users.list)
+  .get(auth.verifyToken, users.list)
   .post(users.create);
 
 module.exports = routes;

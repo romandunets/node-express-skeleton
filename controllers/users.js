@@ -21,9 +21,9 @@ exports.read = function(req, res) {
 };
 
 exports.create = function(req, res) {
-  var new_user = new User(req.body);
-  new_user.role = 'user';
-  new_user.save(function(err, user) {
+  var newUser = new User(req.body);
+  newUser.role = 'user';
+  newUser.save(function(err, user) {
     if (err) return response.sendBadRequest(res, err);
     res.json(user);
   });
@@ -47,7 +47,7 @@ exports.delete = function(req, res) {
   });
 };
 
-exports.load_user = function (req, res, next) {
+exports.loadUser = function (req, res, next) {
   User.findById(req.params.userId, function (err, user) {
     if (err) return res.send(err);
     if (!req.locals) req.locals = {};

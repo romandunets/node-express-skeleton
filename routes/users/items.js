@@ -4,7 +4,7 @@ const routes  = express.Router({ mergeParams: true });
 const items = require('../../controllers/items');
 const auth  = require('../../controllers/auth');
 
-routes.use(auth.verify_token);
+routes.use(auth.verifyToken);
 
 routes.route('/')
   .get(items.list)
