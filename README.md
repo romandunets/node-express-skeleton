@@ -43,7 +43,6 @@ Possible values for `env`:
  * test - test environment
 
 ## TODO
- * Add unit tests
  * CORS problem
  * Pagination
  * Sorting

@@ -3,6 +3,7 @@
 var mongoose = require('mongoose');
 var jwt = require('jsonwebtoken');
 
+var response = require('../helpers/response');
 var User = mongoose.model('User');
 var config = require('config')
 
@@ -15,10 +16,7 @@ exports.authenticate = function(req, res) {
     if (err) throw err;
 
     if (!user) {
-      res.status(401).json({
-        success: false,
-        message: 'Authentication failed. User not found.'
-      });
+      response.sendUnauthorized(res, 'Authentication failed.');
     } else if (user) {
       user.verifyPassword(req.body.password, function(err, isMatch) {
         if (isMatch) {
@@ -32,10 +30,7 @@ exports.authenticate = function(req, res) {
             token: token
           });
         } else {
-          res.status(401).json({
-            success: false,
-            message: 'Authentication failed. Wrong password.'
-          });
+          response.sendUnauthorized(res, 'Authentication failed.');
         }
       });
     }
@@ -48,10 +43,7 @@ exports.verifyToken = function(req, res, next) {
   if (token) {
     jwt.verify(token, privateKey, function(err, decoded) {
       if (err) {
-        return res.status(401).json({
-          success: false,
-          message: 'Failed to authenticate token.'
-        });    
+        response.sendUnauthorized(res, 'Failed to authenticate token.');
       } else {
         User.findById(decoded.id, function(err, user) {
           if (err) res.send(err);
@@ -61,9 +53,6 @@ exports.verifyToken = function(req, res, next) {
       }
     });
   } else {
-    return res.status(401).json({
-      success: false,
-      message: 'No token provided.'
-    });
+    response.sendUnauthorized(res, 'No token provided.');
   }
 };

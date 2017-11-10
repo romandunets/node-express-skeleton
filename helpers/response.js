@@ -5,6 +5,13 @@ exports.sendBadRequest = function(res, message) {
   });
 };
 
+exports.sendUnauthorized = function(res, message) {
+  return res.status(401).send({
+    success: false,
+    message: message
+  });
+};
+
 exports.sendForbidden = function(res) {
   return res.status(403).send({ 
     success: false,
