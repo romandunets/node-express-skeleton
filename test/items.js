@@ -97,7 +97,7 @@ describe('Items', () => {
         .end((err, res) => {
           itemHelper.assertItem(res, adminItem1);
           done();
-      });
+        });
     });
 
     it('it should not get item details data if is not authorized', (done) => {
@@ -106,8 +106,8 @@ describe('Items', () => {
         .end((err, res) => {
           responseHelper.assertNotAuthorized(err, res);
           res.body.should.not.include.keys('name', 'owner');
-        done();
-      });
+          done();
+        });
     });
 
     it('it should return not found error if item id does not exist', (done) => {
@@ -117,8 +117,8 @@ describe('Items', () => {
         .end((err, res) => {
           responseHelper.assertNotFound(err, res);
           res.body.should.not.include.keys('name', 'owner');
-        done();
-      });
+          done();
+        });
     });
 
     it('it should get other user item details data if authorized and has admin rights', (done) => {
@@ -138,8 +138,76 @@ describe('Items', () => {
         .end((err, res) => {
           responseHelper.assertForbidden(err, res);
           res.body.should.not.include.keys('name', 'owner');
-        done();
-      });
+          done();
+        });
+    });
+  });
+
+  describe('/POST users/:userId/items', () => {
+    var newItem = {
+      name: 'newItem1'
+    };
+
+    it('it should create a new item for user if authorized', (done) => {
+      chai.request(app)
+        .post('/users/' + adminUser._id + '/items/')
+        .set('x-access-token', adminUserToken)
+        .type('form')
+        .send(newItem)
+        .end((err, res) => {
+          itemHelper.assertItem(res, newItem);
+          done();
+        });
+    });
+
+    it('it should not create a new item for user if not authorized', (done) => {
+      chai.request(app)
+        .post('/users/' + adminUser._id + '/items/')
+        .type('form')
+        .send(newItem)
+        .end((err, res) => {
+          responseHelper.assertNotAuthorized(err, res);
+          res.body.should.not.include.keys('name', 'owner');
+          done();
+        });
+    });
+
+    it('it should not create a new item for other user if user is authorized and has admin rights', (done) => {
+      chai.request(app)
+        .post('/users/' + testUser._id + '/items/')
+        .set('x-access-token', adminUserToken)
+        .type('form')
+        .send(newItem)
+        .end((err, res) => {
+          itemHelper.assertItem(res, newItem);
+          done();
+        });
+    });
+
+    it('it should not create a new item for other user if user is authorized but does not have admin rights', (done) => {
+      chai.request(app)
+        .post('/users/' + adminUser._id + '/items/')
+        .set('x-access-token', testUserToken)
+        .type('form')
+        .send(newItem)
+        .end((err, res) => {
+          responseHelper.assertForbidden(err, res);
+          res.body.should.not.include.keys('name', 'owner');
+          done();
+        });
+    });
+
+    it('it should not create a new item without name', (done) => {
+      chai.request(app)
+        .post('/users/' + adminUser._id + '/items/')
+        .set('x-access-token', adminUserToken)
+        .type('form')
+        .send({ name: '' })
+        .end((err, res) => {
+          responseHelper.assertBadRequest(err, res);
+          res.body.should.not.include.keys('name', 'owner');
+          done();
+        });
     });
   });
 });
