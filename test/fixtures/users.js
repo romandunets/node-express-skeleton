@@ -16,7 +16,11 @@ exports.users = {
     plainPassword: 'password',
     password: bcrypt.hashSync('password', 10),
     role: 'admin',
-    items: []
+    items: [
+      id('59b50d152d9f6b4110ec9a11'),
+      id('59b50d152d9f6b4110ec9a12'),
+      id('59b50d152d9f6b4110ec9a13')
+    ]
   },
   test: {
     _id: id('59b50d102d9f6b4110ec9a67'),
@@ -24,6 +28,10 @@ exports.users = {
     plainPassword: 'password',
     password: bcrypt.hashSync('password', 10),
     role: 'user',
-    items: []
+    items: [
+      id('59b50d152d9f6b4110ec9a21'),
+      id('59b50d152d9f6b4110ec9a22'),
+      id('59b50d152d9f6b4110ec9a23')
+    ]
   }
 }
