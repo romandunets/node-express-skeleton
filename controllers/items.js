@@ -32,7 +32,7 @@ exports.create = function(req, res) {
 
 exports.read = function(req, res) {
   Item.findById(req.params.id, function(err, item) {
-    if (err) return res.send(err);
+    if (err) return response.sendNotFound(res);
     if (!req.currentUser.canRead(item)) return response.sendForbidden(res);
     res.json(item);
   });

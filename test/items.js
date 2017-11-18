@@ -110,17 +110,6 @@ describe('Items', () => {
       });
     });
 
-    it('it should return not found error if user id does not exist', (done) => {
-      chai.request(app)
-        .get('/users/12345678/items/' + adminItem1._id)
-        .set('x-access-token', adminUserToken)
-        .end((err, res) => {
-          responseHelper.assertNotFound(err, res);
-          res.body.should.not.include.keys('name', 'owner');
-        done();
-      });
-    });
-
     it('it should return not found error if item id does not exist', (done) => {
       chai.request(app)
         .get('/users/' + adminUser._id + '/items/12345678')
@@ -144,7 +133,7 @@ describe('Items', () => {
 
     it('it should not get other user item details data if is authorized but does not have admin rights', (done) => {
       chai.request(app)
-        .get('/users/' + adminUser._id)
+        .get('/users/' + adminUser._id + '/items/' + adminItem1._id)
         .set('x-access-token', testUserToken)
         .end((err, res) => {
           responseHelper.assertForbidden(err, res);
