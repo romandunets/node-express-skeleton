@@ -11,11 +11,39 @@ This project demonstrates:
  * How to encrypt user passowrd in database
  * How to manage and check user rights
  * How to manage multi-environment configuration
+ * How to implement integration tests with fixtures
 
 ## Features
 Unathorized user can only create a new user account. Every authorized user can manage his own set of items using the full set of CRUD operations.
 
-## Test database
+## Getting started
+
+Clone the `node-express-skeleton` repository using [git][git]:
+
+```
+git clone https://github.com/romandunets/node-express-skeleton
+```
+
+Install dependencies:
+
+```
+npm install
+```
+
+Run the application:
+```
+npm start
+```
+
+## Tests
+
+Run tests:
+
+```
+npm test
+```
+
+## Development database
 The repository already contains test database dump under `db/seeds/` directory in json format.
 
 To import the data into databse run import script:
