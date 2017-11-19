@@ -87,6 +87,16 @@ describe('Items', () => {
         done();
       });
     });
+
+    it('it should return not found if user id is not found', (done) => {
+      chai.request(app)
+        .get('/users/12345678/items')
+        .end((err, res) => {
+          responseHelper.assertNotFound(err, res);
+          res.body.should.not.include.keys('name', 'owner');
+          done();
+        });
+    });
   });
 
   describe('/GET users/:userId/items/:id', () => {
