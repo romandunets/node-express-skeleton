@@ -271,4 +271,51 @@ describe('Items', () => {
         });
     });
   });
+
+  describe('/DELETE users/:userId/items/:id', () => {
+    it('it should delete item data if is authorized', (done) => {
+      chai.request(app)
+        .delete('/users/' + adminUser._id + '/items/' + adminItem1._id)
+        .set('x-access-token', adminUserToken)
+        .send()
+        .end((err, res) => {
+          itemHelper.assertDoesNotContainItemData(res, 'Item successfully deleted');
+          done();
+        });
+    });
+
+    it('it should not delete user data if is not authorized', (done) => {
+      chai.request(app)
+        .delete('/users/' + adminUser._id + '/items/' + adminItem1._id)
+        .send()
+        .end((err, res) => {
+          responseHelper.assertNotAuthorized(err, res);
+          res.body.should.not.include.keys('name', 'owner');
+          done();
+        });
+    });
+
+    it('it should delete other user data if is authorized and has admin rights', (done) => {
+      chai.request(app)
+        .delete('/users/' + testUser._id + '/items/' + testItem1._id)
+        .set('x-access-token', adminUserToken)
+        .send()
+        .end((err, res) => {
+          itemHelper.assertDoesNotContainItemData(res, 'Item successfully deleted');
+          done();
+        });
+    });
+
+    it('it should not delete other user data if is authorized but does not have admin rights', (done) => {
+      chai.request(app)
+        .delete('/users/' + adminUser._id + '/items/' + adminItem1._id)
+        .set('x-access-token', testUserToken)
+        .send()
+        .end((err, res) => {
+          responseHelper.assertForbidden(err, res);
+          res.body.should.not.include.keys('name', 'owner');
+          done();
+        });
+    });
+  });
 });
