@@ -182,7 +182,7 @@ describe('Items', () => {
         });
     });
 
-    it('it should not create a new item for other user if user is authorized and has admin rights', (done) => {
+    it('it should create a new item for other user if user is authorized and has admin rights', (done) => {
       chai.request(app)
         .post('/users/' + testUser._id + '/items/')
         .set('x-access-token', adminUserToken)
@@ -215,6 +215,57 @@ describe('Items', () => {
         .send({ name: '' })
         .end((err, res) => {
           responseHelper.assertBadRequest(err, res);
+          res.body.should.not.include.keys('name', 'owner');
+          done();
+        });
+    });
+  });
+
+  describe('/PUT users/:userId/items/:id', () => {
+    it(' it should update own item data if is authorized', (done) => {
+      chai.request(app)
+        .put('/users/' + adminUser._id + '/items/' + adminItem1._id)
+        .set('x-access-token', adminUserToken)
+        .type('form')
+        .send({ name: 'newName' })
+        .end((err, res) => {
+          itemHelper.assertItem(res, { name: 'newName' });
+          done();
+        });
+    });
+
+    it('it should not update item data if is not authorized', (done) => {
+      chai.request(app)
+        .put('/users/' + adminUser._id + '/items/' + adminItem1._id)
+        .type('form')
+        .send({ name: 'newName' })
+        .end((err, res) => {
+          responseHelper.assertNotAuthorized(err, res);
+          res.body.should.not.include.keys('name', 'owner');
+          done();
+        });
+    });
+
+    it('it should update item data for other user if user is authorized and has admin rights', (done) => {
+      chai.request(app)
+        .put('/users/' + testUser._id + '/items/' + testItem1._id)
+        .set('x-access-token', adminUserToken)
+        .type('form')
+        .send({ name: 'newName' })
+        .end((err, res) => {
+          itemHelper.assertItem(res, { name: 'newName' });
+          done();
+        });
+    });
+
+    it('it should not create update item data for other user if user is authorized but does not have admin rights', (done) => {
+      chai.request(app)
+        .put('/users/' + adminUser._id + '/items/' + adminItem1._id)
+        .set('x-access-token', testUserToken)
+        .type('form')
+        .send({ name: 'newName' })
+        .end((err, res) => {
+          responseHelper.assertForbidden(err, res);
           res.body.should.not.include.keys('name', 'owner');
           done();
         });

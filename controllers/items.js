@@ -40,7 +40,7 @@ exports.read = function(req, res) {
 
 exports.update = function(req, res) {
   Item.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true }, function (err, item) {
-    if (err) return res.send(err);
+    if (err) return response.sendBadRequest(res, err);
     if (!req.currentUser.canEdit(item)) return response.sendForbidden(res);
     res.json(item);
   });
