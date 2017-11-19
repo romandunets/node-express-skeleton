@@ -20,11 +20,11 @@ exports.create = function(req, res) {
     var item = new Item(req.body);
     item.owner = user;
     item.save(function(err, item) {
-      if (err) return res.send(err);
+      if (err) return response.sendBadRequest(res, err);
 
       user.items.push(item);
       user.save(function(err, user) {
-        if (err) return res.send(err);
+        if (err) return response.sendBadRequest(res, err);
         res.json(item);
       });
     });
