@@ -8,7 +8,7 @@ exports.list = function(req, res) {
   if (!req.currentUser.canRead(req.locals.user)) return response.sendForbidden(res);
 
   Item.find({ owner: req.params.userId }, function(err, item) {
-    if (err) return res.send(err);
+    if (err) return response.sendNotFound(res);
     res.json(item);
   });
 };
@@ -48,7 +48,7 @@ exports.update = function(req, res) {
 
 exports.delete = function(req, res) {
   Item.remove({ _id: req.params.id }, function(err, item) {
-    if (err) return res.send(err);
+    if (err) return response.sendNotFound(res);
     if (!req.currentUser.canEdit(item)) return response.sendForbidden(res);
     res.json({ message: 'Item successfully deleted' });
   });

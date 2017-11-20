@@ -317,5 +317,17 @@ describe('Items', () => {
           done();
         });
     });
+
+    it('it should return not found if item id is not found', (done) => {
+      chai.request(app)
+        .delete('/users/' + adminUser._id + '/items/123456789')
+        .set('x-access-token', adminUserToken)
+        .send()
+        .end((err, res) => {
+          responseHelper.assertNotFound(err, res);
+          res.body.should.not.include.keys('name', 'owner');
+          done();
+        });
+    });
   });
 });
