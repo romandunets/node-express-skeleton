@@ -44,31 +44,17 @@ npm test
 ```
 
 ## Development database
-The repository already contains test database dump under `db/seeds/` directory in json format.
+Development database can be populated using `populatedb` script:
+```
+npm run populatedb
+```
+The command will use test fixtures to populate development database with fixtures from `test/fixtures` directory.
 
-To import the data into databse run import script:
+To populate some collections only use `mongofixtures`:
 ```
-./db/import.sh [env] (if `env` is not set, `dev` is used as a value)
+mongofixtures node-express-skeleton-dev fixtures/users.js
 ```
-
-To import a single collection use `mongoimport`
-```
-mongoimport --db node-express-skeleton-[env] --collection db/seeds/users --file users.json --jsonArray
-```
-
-To update the dump run export script (if `env` is not set, `dev` is used as a value)
-```
-./db/export.sh [env]
-```
-
-To update a single collection run `mongoexport`
-```
-mongoexport --db node-express-skeleton-[env] --collection db/seeds/users --out users.json --jsonArray --pretty
-```
-
-Possible values for `env`:
- * dev - development environment (default)
- * test - test environment
+This command can be also used to populate the same fixutres to different databases.
 
 ## TODO
  * CORS problem

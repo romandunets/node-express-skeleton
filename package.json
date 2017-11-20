@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "export NODE_ENV=dev && nodemon app.js",
-    "test": "export NODE_ENV=test && mocha --timeout 10000"
+    "test": "export NODE_ENV=test && mocha --timeout 10000",
+    "populatedb": "mongofixtures node-express-skeleton-dev test/fixtures"
   },
   "repository": {
     "type": "git",
