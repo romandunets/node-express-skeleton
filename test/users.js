@@ -56,11 +56,11 @@ describe('Users', () => {
           res.should.have.status(200);
           res.type.should.equal('application/json');
           res.body.should.be.a('array');
-          res.body.should.have.lengthOf(3);
+          res.body.should.have.lengthOf(5);
           res.body[0].should.include.keys('email', 'items', 'role');
           res.body[0].should.not.include.keys('password');
-        done();
-      });
+          done();
+        });
     });
 
     it('it should not list all users if is not authorized', (done) => {
@@ -69,8 +69,8 @@ describe('Users', () => {
         .end((err, res) => {
           responseHelper.assertNotAuthorized(err, res);
           res.body.should.not.include.keys('email', 'items', 'role');
-        done();
-      });
+          done();
+        });
     });
 
     it('it should not list all users if is authorized but does not have admin rights', (done) => {
@@ -80,8 +80,24 @@ describe('Users', () => {
         .end((err, res) => {
           responseHelper.assertForbidden(err, res);
           res.body.should.not.include.keys('email', 'items', 'role');
-        done();
-      });
+          done();
+        });
+    });
+
+    it('it should paginate users list with custom parameters', (done) => {
+      chai.request(app)
+        .get('/users?page=1&pageSize=3')
+        .set('x-access-token', adminUserToken)
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.type.should.equal('application/json');
+          res.body.should.be.a('array');
+          res.body.should.have.lengthOf(3);
+          res.body[0].email.should.be.equal('user@mail.com');
+          res.body[1].email.should.be.equal('admin@mail.com');
+          res.body[2].email.should.be.equal('test@mail.com');
+          done();
+        });
     });
   });
 

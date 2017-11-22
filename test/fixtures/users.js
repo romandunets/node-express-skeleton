@@ -33,5 +33,21 @@ exports.users = {
       id('59b50d152d9f6b4110ec9a22'),
       id('59b50d152d9f6b4110ec9a23')
     ]
+  },
+  test1: {
+    id: id('59b50d102d9f6b4110ec9a65'),
+    email: 'test1@mail.com',
+    plainPassword: 'password',
+    password: bcrypt.hashSync('password', 10),
+    role: 'user',
+    items: []
+  },
+  test2: {
+    id: id('59b50d102d9f6b4110ec9a66'),
+    email: 'test2@mail.com',
+    plainPassword: 'password',
+    password: bcrypt.hashSync('password', 10),
+    role: 'user',
+    items: []
   }
 }
