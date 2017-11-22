@@ -6,9 +6,9 @@ var User = mongoose.model('User');
 
 exports.list = function(req, res) {
   if (req.currentUser.role != 'admin') return response.sendForbidden(res);
-  User.find({}, function(err, user) {
+  User.paginate({}, { page: (req.query.page !== undefined) ? parseInt(req.query.page) : 1, limit: (req.query.pageSize !== undefined) ? parseInt(req.query.pageSize) : 10 }, function(err, result) {
     if (err) return res.send(err);
-    res.json(user);
+    res.json(result.docs);
   });
 };
 

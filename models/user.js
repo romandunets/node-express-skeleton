@@ -1,7 +1,9 @@
 'use strict';
 
 var mongoose = require('mongoose');
+var mongoosePaginate = require('mongoose-paginate');
 var bcrypt = require('bcrypt');
+
 var Schema = mongoose.Schema;
 
 var UserSchema = new Schema({
@@ -70,5 +72,7 @@ UserSchema.methods.canRead = function(object) {
 UserSchema.methods.canEdit = function(object) {
   return this.canRead(object); // can be extended later
 };
+
+UserSchema.plugin(mongoosePaginate);
 
 module.exports = mongoose.model('User', UserSchema);
