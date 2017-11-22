@@ -2,11 +2,12 @@
 
 var mongoose = require('mongoose');
 var response = require('../helpers/response');
+var pagination = require('../helpers/pagination');
 var User = mongoose.model('User');
 
 exports.list = function(req, res) {
   if (req.currentUser.role != 'admin') return response.sendForbidden(res);
-  User.paginate({}, { page: (req.query.page !== undefined) ? parseInt(req.query.page) : 1, limit: (req.query.pageSize !== undefined) ? parseInt(req.query.pageSize) : 10 }, function(err, result) {
+  User.paginate({}, pagination.getPaginationOptions(req), function(err, result) {
     if (err) return res.send(err);
     res.json(result.docs);
   });
