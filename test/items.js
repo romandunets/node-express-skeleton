@@ -184,7 +184,7 @@ describe('Items', () => {
         .type('form')
         .send(newItem)
         .end((err, res) => {
-          itemHelper.assertItem(res, newItem);
+          itemHelper.assertCreatedItem(res, newItem);
           done();
         });
     });
@@ -208,7 +208,7 @@ describe('Items', () => {
         .type('form')
         .send(newItem)
         .end((err, res) => {
-          itemHelper.assertItem(res, newItem);
+          itemHelper.assertCreatedItem(res, newItem);
           done();
         });
     });

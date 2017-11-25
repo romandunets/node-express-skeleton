@@ -170,7 +170,7 @@ describe('Users', () => {
         .type('form')
         .send(newUser)
         .end((err, res) => {
-          userHelper.assertUser(res, { email: newUser.email, role: 'user' });
+          userHelper.assertCreatedUser(res, { email: newUser.email, role: 'user' });
           done();
         });
     });
@@ -205,7 +205,7 @@ describe('Users', () => {
         .type('form')
         .send({ email: newUser.email, password: newUser.password, role: 'admin' })
         .end((err, res) => {
-          userHelper.assertUser(res, { email: newUser.email, role: 'user' });
+          userHelper.assertCreatedUser(res, { email: newUser.email, role: 'user' });
           done();
         });
     });

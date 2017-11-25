@@ -27,7 +27,7 @@ exports.create = function(req, res) {
   newUser.role = 'user';
   newUser.save(function(err, user) {
     if (err) return response.sendBadRequest(res, err);
-    res.json(user);
+    response.sendCreated(res, user);
   });
 };
 

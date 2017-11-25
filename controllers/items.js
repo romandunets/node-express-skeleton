@@ -26,7 +26,7 @@ exports.create = function(req, res) {
       user.items.push(item);
       user.save(function(err, user) {
         if (err) return response.sendBadRequest(res, err);
-        res.json(item);
+        response.sendCreated(res, item);
       });
     });
 };

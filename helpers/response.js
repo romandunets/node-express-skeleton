@@ -1,3 +1,7 @@
+exports.sendCreated = function(res, user) {
+  return res.status(201).send(user);
+};
+
 exports.sendBadRequest = function(res, message) {
   return res.status(400).send({
     success: false,
