@@ -9,3 +9,9 @@ exports.getPaginationOptions = function(req, message) {
   	limit: limit
   };
 };
+
+exports.setPaginationHeaders = function(res, result) {
+  res.set('Pagination-Count', result.total);
+  res.set('Pagination-Page', result.page);
+  res.set('Pagination-Limit', result.limit);
+};

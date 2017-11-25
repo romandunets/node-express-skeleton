@@ -96,6 +96,9 @@ describe('Users', () => {
           res.body[0].email.should.be.equal('user@mail.com');
           res.body[1].email.should.be.equal('admin@mail.com');
           res.body[2].email.should.be.equal('test@mail.com');
+          res.header['pagination-count'].should.be.equal('5');
+          res.header['pagination-page'].should.be.equal('1');
+          res.header['pagination-limit'].should.be.equal('3');
           done();
         });
     });
