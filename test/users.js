@@ -93,9 +93,9 @@ describe('Users', () => {
           res.type.should.equal('application/json');
           res.body.should.be.a('array');
           res.body.should.have.lengthOf(3);
-          res.body[0].email.should.be.equal('user@mail.com');
-          res.body[1].email.should.be.equal('admin@mail.com');
-          res.body[2].email.should.be.equal('test@mail.com');
+          res.body[0].email.should.be.equal(userFixtures.users.user.email);
+          res.body[1].email.should.be.equal(userFixtures.users.admin.email);
+          res.body[2].email.should.be.equal(userFixtures.users.test.email);
           res.header['pagination-count'].should.be.equal('5');
           res.header['pagination-page'].should.be.equal('1');
           res.header['pagination-limit'].should.be.equal('3');
@@ -112,7 +112,7 @@ describe('Users', () => {
         .end((err, res) => {
           userHelper.assertUser(res, adminUser);
           done();
-      });
+        });
     });
 
     it('it should not get a single user data if is not authorized', (done) => {
@@ -121,8 +121,8 @@ describe('Users', () => {
         .end((err, res) => {
           responseHelper.assertNotAuthorized(err, res);
           res.body.should.not.include.keys('email', 'items', 'role');
-        done();
-      });
+          done();
+        });
     });
 
     it('it should return not found error if user id does not exist', (done) => {
@@ -132,8 +132,8 @@ describe('Users', () => {
         .end((err, res) => {
           responseHelper.assertNotFound(err, res);
           res.body.should.not.include.keys('email', 'items', 'role');
-        done();
-      });
+          done();
+        });
     });
 
     it('it should get other user data if authorized and has admin rights', (done) => {
@@ -153,8 +153,8 @@ describe('Users', () => {
         .end((err, res) => {
           responseHelper.assertForbidden(err, res);
           res.body.should.not.include.keys('email', 'items', 'role');
-        done();
-      });
+          done();
+        });
     });
   });
 

@@ -17,6 +17,16 @@ exports.items = {
     name: 'Admin item 3',
     owner: userFixtures.users.admin._id
   },
+  adminItem4: {
+    _id: id('59b50d152d9f6b4110ec9a14'),
+    name: 'Admin item 4',
+    owner: userFixtures.users.admin._id
+  },
+  adminItem5: {
+    _id: id('59b50d152d9f6b4110ec9a15'),
+    name: 'Admin item 5',
+    owner: userFixtures.users.admin._id
+  },
   testItem1: {
     _id: id('59b50d152d9f6b4110ec9a21'),
     name: 'Test item 1',

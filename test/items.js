@@ -61,7 +61,7 @@ describe('Items', () => {
           res.should.have.status(200);
           res.type.should.equal('application/json');
           res.body.should.be.a('array');
-          res.body.should.have.lengthOf(3);
+          res.body.should.have.lengthOf(5);
           res.body[0].should.include.keys('name', 'owner');
           done();
         });
@@ -94,6 +94,25 @@ describe('Items', () => {
         .end((err, res) => {
           responseHelper.assertNotFound(err, res);
           res.body.should.not.include.keys('name', 'owner');
+          done();
+        });
+    });
+
+    it('it should paginate items list with custom parameters', (done) => {
+      chai.request(app)
+        .get('/users/' + adminUser._id + '/items?page=1&pageSize=3')
+        .set('x-access-token', adminUserToken)
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.type.should.equal('application/json');
+          res.body.should.be.a('array');
+          res.body.should.have.lengthOf(3);
+          res.body[0].name.should.be.equal(itemFixtures.items.adminItem1.name);
+          res.body[1].name.should.be.equal(itemFixtures.items.adminItem2.name);
+          res.body[2].name.should.be.equal(itemFixtures.items.adminItem3.name);
+          res.header['pagination-count'].should.be.equal('5');
+          res.header['pagination-page'].should.be.equal('1');
+          res.header['pagination-limit'].should.be.equal('3');
           done();
         });
     });

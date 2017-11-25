@@ -1,6 +1,7 @@
 'use strict';
 
 var mongoose = require('mongoose');
+var mongoosePaginate = require('mongoose-paginate');
 var Schema = mongoose.Schema;
 
 var ItemSchema = new Schema({
@@ -14,5 +15,7 @@ var ItemSchema = new Schema({
     required: true
   }
 });
+
+ItemSchema.plugin(mongoosePaginate);
 
 module.exports = mongoose.model('Item', ItemSchema);

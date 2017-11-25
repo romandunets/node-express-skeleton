@@ -2,14 +2,15 @@
 
 var mongoose = require('mongoose');
 var response = require('../helpers/response');
+var pagination = require('../helpers/pagination');
 var Item = mongoose.model('Item');
 
 exports.list = function(req, res) {
   if (!req.currentUser.canRead(req.locals.user)) return response.sendForbidden(res);
-
-  Item.find({ owner: req.params.userId }, function(err, item) {
+  Item.paginate({ owner: req.params.userId }, pagination.getPaginationOptions(req), function(err, result) {
     if (err) return response.sendNotFound(res);
-    res.json(item);
+    pagination.setPaginationHeaders(res, result);
+    res.json(result.docs);
   });
 };
 
