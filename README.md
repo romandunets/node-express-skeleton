@@ -60,7 +60,7 @@ This command can be also used to populate the same fixutres to different databas
 ## TODO
  * CORS problem
  * Sorting
- * Search
+ * Filtering
 
 ## References
  * https://www.terlici.com/2014/08/25/best-practices-express-structure.html

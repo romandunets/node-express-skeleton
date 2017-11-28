@@ -102,6 +102,40 @@ describe('Users', () => {
           done();
         });
     });
+
+    it('it should sort items list by email in ascending order', (done) => {
+      chai.request(app)
+        .get('/users?sort=email')
+        .set('x-access-token', adminUserToken)
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.type.should.equal('application/json');
+          res.body.should.be.a('array');
+          res.body[0].email.should.be.equal(userFixtures.users.admin.email);
+          res.body[1].email.should.be.equal(userFixtures.users.test1.email);
+          res.body[2].email.should.be.equal(userFixtures.users.test2.email);
+          res.body[3].email.should.be.equal(userFixtures.users.test.email);
+          res.body[4].email.should.be.equal(userFixtures.users.user.email);
+          done();
+        });
+    });
+
+    it('it should sort items list by email in descending order', (done) => {
+      chai.request(app)
+        .get('/users?sort=-email')
+        .set('x-access-token', adminUserToken)
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.type.should.equal('application/json');
+          res.body.should.be.a('array');
+          res.body[0].email.should.be.equal(userFixtures.users.user.email);
+          res.body[1].email.should.be.equal(userFixtures.users.test.email);
+          res.body[2].email.should.be.equal(userFixtures.users.test2.email);
+          res.body[3].email.should.be.equal(userFixtures.users.test1.email);
+          res.body[4].email.should.be.equal(userFixtures.users.admin.email);
+          done();
+        });
+    });
   });
 
   describe('/GET users/:id', () => {
