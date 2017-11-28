@@ -103,7 +103,7 @@ describe('Users', () => {
         });
     });
 
-    it('it should sort items list by email in ascending order', (done) => {
+    it('it should sort users list by email in ascending order', (done) => {
       chai.request(app)
         .get('/users?sort=email')
         .set('x-access-token', adminUserToken)
@@ -120,7 +120,7 @@ describe('Users', () => {
         });
     });
 
-    it('it should sort items list by email in descending order', (done) => {
+    it('it should sort users list by email in descending order', (done) => {
       chai.request(app)
         .get('/users?sort=-email')
         .set('x-access-token', adminUserToken)

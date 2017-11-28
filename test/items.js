@@ -116,6 +116,40 @@ describe('Items', () => {
           done();
         });
     });
+
+    it('it should sort items list by name in ascending order', (done) => {
+      chai.request(app)
+        .get('/users/' + adminUser._id + '/items?sort=name')
+        .set('x-access-token', adminUserToken)
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.type.should.equal('application/json');
+          res.body.should.be.a('array');
+          res.body[0].name.should.be.equal(itemFixtures.items.adminItem1.name);
+          res.body[1].name.should.be.equal(itemFixtures.items.adminItem2.name);
+          res.body[2].name.should.be.equal(itemFixtures.items.adminItem3.name);
+          res.body[3].name.should.be.equal(itemFixtures.items.adminItem4.name);
+          res.body[4].name.should.be.equal(itemFixtures.items.adminItem5.name);
+          done();
+        });
+    });
+
+    it('it should sort items list by name in descending order', (done) => {
+      chai.request(app)
+        .get('/users/' + adminUser._id + '/items?sort=-name')
+        .set('x-access-token', adminUserToken)
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.type.should.equal('application/json');
+          res.body.should.be.a('array');
+          res.body[0].name.should.be.equal(itemFixtures.items.adminItem5.name);
+          res.body[1].name.should.be.equal(itemFixtures.items.adminItem4.name);
+          res.body[2].name.should.be.equal(itemFixtures.items.adminItem3.name);
+          res.body[3].name.should.be.equal(itemFixtures.items.adminItem2.name);
+          res.body[4].name.should.be.equal(itemFixtures.items.adminItem1.name);
+          done();
+        });
+    });
   });
 
   describe('/GET users/:userId/items/:id', () => {

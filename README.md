@@ -13,6 +13,7 @@ This project demonstrates:
  * How to manage multi-environment configuration
  * How to implement integration tests with fixtures
  * How to implement pagination for lists
+ * How to implement sorting for lists
 
 ## Features
 Unathorized user can only create a new user account. Every authorized user can manage his own set of items using the full set of CRUD operations.
@@ -59,7 +60,6 @@ This command can be also used to populate the same fixutres to different databas
 
 ## TODO
  * CORS problem
- * Sorting
  * Filtering
 
 ## References
