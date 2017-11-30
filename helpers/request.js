@@ -7,3 +7,15 @@ exports.getRequestOptions = function(req) {
 
   return Object.assign({}, paginationOptions, sortOptions);
 };
+
+exports.getFilteringOptions = function(req, parameters) {
+  var options = {};
+
+  parameters.forEach(function(param) {
+    if (req.query[param] !== undefined) {
+      options[param] = req.query[param];
+    }
+  });
+
+  return options;
+};

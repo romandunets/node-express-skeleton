@@ -8,7 +8,7 @@ var User = mongoose.model('User');
 
 exports.list = function(req, res) {
   if (req.currentUser.role != 'admin') return response.sendForbidden(res);
-  User.paginate({}, request.getRequestOptions(req), function(err, result) {
+  User.paginate(request.getFilteringOptions(req, ['email', 'role']), request.getRequestOptions(req), function(err, result) {
     if (err) return res.send(err);
     pagination.setPaginationHeaders(res, result);
     res.json(result.docs);
