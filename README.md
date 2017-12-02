@@ -14,6 +14,8 @@ This project demonstrates:
  * How to implement integration tests with fixtures
  * How to implement pagination for lists
  * How to implement sorting for lists
+ * How to implement filtering for lists
+ * How to handle CORS problem
 
 ## Features
 Unathorized user can only create a new user account. Every authorized user can manage his own set of items using the full set of CRUD operations.
@@ -57,10 +59,6 @@ To populate some collections only use `mongofixtures`:
 mongofixtures node-express-skeleton-dev fixtures/users.js
 ```
 This command can be also used to populate the same fixutres to different databases.
-
-## TODO
- * CORS problem
- * Filtering
 
 ## References
  * https://www.terlici.com/2014/08/25/best-practices-express-structure.html

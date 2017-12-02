@@ -1,5 +1,5 @@
-exports.sendCreated = function(res, user) {
-  return res.status(201).send(user);
+exports.sendCreated = function(res, data) {
+  return res.status(201).send(data);
 };
 
 exports.sendBadRequest = function(res, message) {
@@ -29,3 +29,9 @@ exports.sendNotFound = function(res) {
     message: 'Resource not found.'
   });
 };
+
+exports.setHeadersForCORS = function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, X-Access-Token, Content-Type, Accept");
+  next();
+}

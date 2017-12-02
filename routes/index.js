@@ -6,6 +6,8 @@ const users = require('./users');
 
 var response = require('../helpers/response');
 
+routes.use(response.setHeadersForCORS);
+
 routes.use('/', auth);
 routes.use('/users', users);
 

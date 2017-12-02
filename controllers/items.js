@@ -8,7 +8,8 @@ var Item = mongoose.model('Item');
 
 exports.list = function(req, res) {
   if (!req.currentUser.canRead(req.locals.user)) return response.sendForbidden(res);
-  Item.paginate(Object.assign({ owner: req.params.userId }, request.getFilteringOptions(req, ['name'])), request.getRequestOptions(req), function(err, result) {
+  const query = Object.assign({ owner: req.params.userId }, request.getFilteringOptions(req, ['name']));
+  Item.paginate(query, request.getRequestOptions(req), function(err, result) {
     if (err) return response.sendNotFound(res);
     pagination.setPaginationHeaders(res, result);
     res.json(result.docs);
