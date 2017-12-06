@@ -29,7 +29,7 @@ Also you must to have node.js and npm (node.js package manager). You can get the
 
 ### Development environment
 
-Clone the `node-express-skeleton` repository using [git](git):
+Clone the `node-express-skeleton` repository using git:
 
 ```
 git clone https://github.com/romandunets/node-express-skeleton
@@ -67,10 +67,29 @@ Run tests:
 npm test
 ```
 
+## API endpoints
+This table contains the endpoints the API supports:
+
+URL | Method | Data example | Description | Query parameters
+--- | --- | --- | --- | ---
+/ | GET | | ping endpoint
+/authenticate/ | POST | { email: "test@mail.com", password: "password" } | authenticate user
+/users/ | GET | | list all users | Pagination: `?page=1&pageSize=10`, Sorting ascending: `sort=email`, Sorting descending: `sort=-email`, Multiple sortings: `sort=email,-role`, Filtering: `?email=test@mail.com`, `?role=user`
+/users/ | POST | { email: "test@mail.com", password: "password" } | create new user
+/users/:userId/ | GET | | get user data details
+/users/:userId/ | PUT | { email: "test@mail.com", password: "password" } | update user data details
+/users/:userId/ | DELETE | | delete user
+/users/:userId/items/ | GET | | list all items |  Pagination: `?page=1&pageSize=10`, Sorting ascending: `sort=name`, Sorting descending: `sort=-name`, Filtering: `?name=test`
+/users/:userId/items/ | POST | { name: "test" } | create new item for user
+/users/:userId/items/:id/ | GET | | get item data details
+/users/:userId/items/:id/ | PUT | { name: "test" } | update item data details
+/users/:userId/items/:id/ | DELETE | | delete item
+
 ## References
+ * [Best Practices for Designing a Pragmatic RESTful API](http://www.vinaysahni.com/best-practices-for-a-pragmatic-restful-api#pagination)
  * [Best practices for Express app structure](https://www.terlici.com/2014/08/25/best-practices-express-structure.html)
  * [User Authentication using JWT (JSON Web Token) in Node.js (Express Framework)](https://medium.com/@pandeysoni/user-authentication-using-jwt-json-web-token-in-node-js-using-express-framework-543151a38ea1)
  * [Authenticate a Node.js API with JSON Web Tokens](https://scotch.io/tutorials/authenticate-a-node-js-api-with-json-web-tokens)
- * [https://www.codementor.io/olatundegaruba/5-steps-to-authenticating-node-js-with-jwt-7ahb5dmyr](https://www.codementor.io/olatundegaruba/5-steps-to-authenticating-node-js-with-jwt-7ahb5dmyr)
+ * [5 Steps to Authenticating Node.js with JWT](https://www.codementor.io/olatundegaruba/5-steps-to-authenticating-node-js-with-jwt-7ahb5dmyr)
  * [Route Middleware to Check if a User is Authenticated in Node.js](https://scotch.io/quick-tips/route-middleware-to-check-if-a-user-is-authenticated-in-node-js)
  * [Keeping API Routing Clean Using Express Routers](https://scotch.io/tutorials/keeping-api-routing-clean-using-express-routers)
