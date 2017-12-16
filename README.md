@@ -72,20 +72,20 @@ npm test
 ## API endpoints
 This table contains the endpoints the API supports:
 
-URL | Method | Data example | Description | Query parameters
---- | --- | --- | --- | ---
-/ | GET | | ping endpoint
-/authenticate/ | POST | { email: "test@mail.com", password: "password" } | authenticate user
-/users/ | GET | | list all users | Pagination: `?page=1&pageSize=10`, Sorting ascending: `sort=email`, Sorting descending: `sort=-email`, Multiple sortings: `sort=email,-role`, Filtering: `?email=test@mail.com`, `?role=user`
-/users/ | POST | { email: "test@mail.com", password: "password" } | create new user
-/users/:userId/ | GET | | get user data details
-/users/:userId/ | PUT | { email: "test@mail.com", password: "password" } | update user data details
-/users/:userId/ | DELETE | | delete user
-/users/:userId/items/ | GET | | list all items |  Pagination: `?page=1&pageSize=10`, Sorting ascending: `sort=name`, Sorting descending: `sort=-name`, Filtering: `?name=test`
-/users/:userId/items/ | POST | { name: "test" } | create new item for user
-/users/:userId/items/:id/ | GET | | get item data details
-/users/:userId/items/:id/ | PUT | { name: "test" } | update item data details
-/users/:userId/items/:id/ | DELETE | | delete item
+URL | Method | Data example | Description | Query parameters | Response codes
+--- | --- | --- | --- | --- | ---
+/ | GET | | ping endpoint | | 200 - OK
+/authenticate/ | POST | { email: "test@mail.com", password: "password" } | authenticate user | | 200 - Token created, 401 - Authentication failed
+/users/ | GET | | list all users | Pagination: `?page=1&pageSize=10`, Sorting ascending: `sort=email`, Sorting descending: `sort=-email`, Multiple sortings: `sort=email,-role`, Filtering: `?email=test@mail.com`, `?role=user` | 200 - Returns list of users, 401 - Authentication failed, 403 - Wrong user rights
+/users/ | POST | { email: "test@mail.com", password: "password" } | create new user | | 201 - Returns created user details, 400 - Validation failed
+/users/:userId/ | GET | | get user data details | | 200 - Returns user details, 401 - Authentication failed, 403 - Wrong user rights, 404 - User not found
+/users/:userId/ | PUT | { email: "test@mail.com", password: "password" } | update user data details | | 200 - Returns updated user details, 400 - Validation failed, 401 - Authentication failed, 403 - Wrong user rights, 404 - User not found
+/users/:userId/ | DELETE | | delete user | | 200 - OK, 401 - Authentication failed, 403 - Wrong user rights, 404 - User not found
+/users/:userId/items/ | GET | | list all items |  Pagination: `?page=1&pageSize=10`, Sorting ascending: `sort=name`, Sorting descending: `sort=-name`, Filtering: `?name=test` | 200 - Returns list of items, 401 - Authentication failed, 403 - Wrong user rights
+/users/:userId/items/ | POST | { name: "test" } | create new item for user | | 201 - Returns created item details, 400 - Validation failed
+/users/:userId/items/:id/ | GET | | get item data details | | 200 - Returns item details, 401 - Authentication failed, 403 - Wrong user rights, 404 - Item not found
+/users/:userId/items/:id/ | PUT | { name: "test" } | update item data details | | 200 - Returns updated item details, 400 - Validation failed, 401 - Authentication failed, 403 - Wrong user rights, 404 - Item not found
+/users/:userId/items/:id/ | DELETE | | delete item | | 200 - OK, 401 - Authentication failed, 403 - Wrong user rights, 404 - User not found
 
 ## References
  * [Best Practices for Designing a Pragmatic RESTful API](http://www.vinaysahni.com/best-practices-for-a-pragmatic-restful-api#pagination)
