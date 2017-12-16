@@ -27,6 +27,8 @@ You need to have a git client to clone the repository. You can get it from http:
 
 Also you must to have node.js and npm (node.js package manager). You can get them from http://nodejs.org/.
 
+In order to work with database, you should ave installed mongodb. Instructions on installation can be found here: https://docs.mongodb.com/manual/installation/.
+
 ### Development environment
 
 Clone the `node-express-skeleton` repository using git:
