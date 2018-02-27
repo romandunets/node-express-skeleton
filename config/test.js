@@ -1,6 +1,6 @@
 module.exports = {
   server: {
-    port: 3001
+    port: 9001
   },
   database: {
     url: 'mongodb://localhost/node-express-skeleton-test',

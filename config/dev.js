@@ -1,9 +1,9 @@
 module.exports = {
   server: {
-    port: 3000
+    port: 9000
   },
   database: {
-    url: 'mongodb://localhost/node-express-skeleton-dev',
+    url: 'mongodb://db/node-express-skeleton-dev',
     properties: {
       useMongoClient: true
     }

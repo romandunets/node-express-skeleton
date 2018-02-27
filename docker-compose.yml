@@ -1,0 +1,28 @@
+version: '2'
+services:
+  api:
+    image: node:8
+    user: node
+    working_dir: /home/node/app
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - ./:/home/node/app
+    ports:
+      - 9000
+    links:
+      - db
+    depends_on:
+      - db
+    command: bash -c "npm install && npm start"
+  
+  db:
+    image: mongo:3.6
+    environment:
+      - MONGO_DATA_DIR=/data/db
+      - MONGO_LOG_DIR=/dev/null
+    volumes:
+      - ./data/db:/data/db
+    expose:
+      - 27017
+    command: mongod --smallfiles --logpath=/dev/null
