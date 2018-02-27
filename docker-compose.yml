@@ -5,7 +5,8 @@ services:
     user: node
     working_dir: /home/node/app
     environment:
-      - NODE_ENV=development
+      - NODE_ENV=dev
+      - DB_HOST=db
     volumes:
       - ./:/home/node/app
     ports:
@@ -14,7 +15,7 @@ services:
       - db
     depends_on:
       - db
-    command: bash -c "npm install && npm start"
+    command: bash -c "npm start"
   
   db:
     image: mongo:3.6

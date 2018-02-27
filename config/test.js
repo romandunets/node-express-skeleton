@@ -1,9 +1,11 @@
+const host = process.env.DB_HOST || 'localhost';
+
 module.exports = {
   server: {
     port: 9001
   },
   database: {
-    url: 'mongodb://localhost/node-express-skeleton-test',
+    url: `mongodb://${host}/node-express-skeleton-dev`,
     properties: {
       useMongoClient: true
     }
