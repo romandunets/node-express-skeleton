@@ -15,15 +15,13 @@ services:
       - db
     depends_on:
       - db
-    command: bash -c "npm start"
+    command: bash -c "rm -rf node_modules && npm install && npm start"
   
   db:
     image: mongo:3.6
     environment:
       - MONGO_DATA_DIR=/data/db
       - MONGO_LOG_DIR=/dev/null
-    volumes:
-      - ./data/db:/data/db
     expose:
       - 27017
     command: mongod --smallfiles --logpath=/dev/null

@@ -37,6 +37,10 @@ Clone the `node-express-skeleton` repository using git:
 git clone https://github.com/romandunets/node-express-skeleton
 ```
 
+Next, you need to install packages and run the application. There are two options to do that.
+
+#### Local environment
+
 Install dependencies:
 
 ```
@@ -47,6 +51,20 @@ Run the application:
 ```
 npm start
 ```
+
+Note: make sure that mongo db is up and running on your machines.
+
+#### Docker-compose environment
+
+You should have Docker and Docker-Compose on your machine to run the following commands. Build and start docker-compose containers:
+
+```
+docker-compose up
+```
+
+Container uses local directory as a volume, hence it supports hot reload for changes in the node code. For more information look at `docker-compose.yml`.
+
+This command will remove node modules and re-install them for container. This might cause troubles in running it later on OSX. Simply remove node_modules directory and run `npm install` again.
 
 ### Development database
 Development database can be populated using `populatedb` script:
