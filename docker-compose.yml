@@ -1,27 +1,27 @@
-version: '2'
+version: '3'
 services:
-  api:
-    image: node:8
-    user: node
-    working_dir: /home/node/app
-    environment:
-      - NODE_ENV=dev
-      - DB_HOST=db
-    volumes:
-      - ./:/home/node/app
-    ports:
-      - 9000
-    links:
-      - db
-    depends_on:
-      - db
-    command: bash -c "rm -rf node_modules && npm install && npm start"
-  
   db:
-    image: mongo:3.6
+    build:
+      context: ./
+      dockerfile: ./docker/db/Dockerfile
     environment:
       - MONGO_DATA_DIR=/data/db
       - MONGO_LOG_DIR=/dev/null
     expose:
       - 27017
-    command: mongod --smallfiles --logpath=/dev/null
+
+  api:
+    build:
+      context: ./
+      dockerfile: ./docker/api/Dockerfile
+    environment:
+      - NODE_ENV=dev
+      - DB_HOST=db
+    volumes:
+      - ./src:/home/node/app/src
+    ports:
+      - 9000:9000
+    links:
+      - db
+    depends_on:
+      - db

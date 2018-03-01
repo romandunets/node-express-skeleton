@@ -39,7 +39,7 @@ git clone https://github.com/romandunets/node-express-skeleton
 
 Next, you need to install packages and run the application. There are two options to do that.
 
-#### Local environment
+#### Running local development environment
 
 Install dependencies:
 
@@ -54,7 +54,7 @@ npm start
 
 Note: make sure that mongo db is up and running on your machines.
 
-#### Docker-compose environment
+#### Running docker-compose development environment
 
 You should have Docker and Docker-Compose on your machine to run the following commands. Build and start docker-compose containers:
 
