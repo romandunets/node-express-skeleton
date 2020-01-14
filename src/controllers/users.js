@@ -1,7 +1,7 @@
-import mongoose from 'mongoose';
-import response from '../helpers/response';
-import request from '../helpers/request';
-import pagination from '../helpers/pagination';
+const mongoose = require('mongoose')
+const response = require('../helpers/response')
+const request = require('../helpers/request')
+const pagination = require('../helpers/pagination')
 
 const User = mongoose.model('User');
 
@@ -24,7 +24,7 @@ exports.read = function(req, res) {
 
 exports.create = function(req, res) {
   const newUser = new User(req.body);
-  newUser.role = 'user';
+  newUser.role = newUser.role == 'admin' ? 'admin' : 'user';
   newUser.save(function(err, user) {
     if (err) return response.sendBadRequest(res, err);
     response.sendCreated(res, user);

@@ -1,7 +1,7 @@
-import mongoose from 'mongoose';
-import response from '../helpers/response';
-import request from '../helpers/request';
-import pagination from '../helpers/pagination';
+const mongoose = require('mongoose')
+const response = require('../helpers/response')
+const request = require('../helpers/request')
+const pagination = require('../helpers/pagination')
 
 const Item = mongoose.model('Item');
 
@@ -17,6 +17,7 @@ exports.list = function(req, res) {
 
 exports.create = function(req, res) {
     const user = req.locals.user;
+    console.log('User: ' + user);
     if (!req.currentUser.canEdit(user)) return response.sendForbidden(res);
 
     const item = new Item(req.body);

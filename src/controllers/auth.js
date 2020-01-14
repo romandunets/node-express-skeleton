@@ -1,7 +1,7 @@
-import mongoose from 'mongoose';
-import jwt from 'jsonwebtoken';
-import config from 'config';
-import response from '../helpers/response';
+const mongoose = require('mongoose')
+const jwt = require('jsonwebtoken')
+const config = require('../config/dev')
+const response = require('../helpers/response')
 
 const User = mongoose.model('User');
 
@@ -13,9 +13,7 @@ exports.authenticate = function(req, res) {
   .exec(function(err, user) {
     if (err) throw err;
 
-    if (!user) {
-      response.sendUnauthorized(res, 'Authentication failed.');
-    } else if (user) {
+    if (user) {
       user.verifyPassword(req.body.password, function(err, isMatch) {
         if (isMatch) {
           const token = jwt.sign(user.getTokenData(), privateKey, {
@@ -31,12 +29,15 @@ exports.authenticate = function(req, res) {
           response.sendUnauthorized(res, 'Authentication failed.');
         }
       });
+    } else {
+      response.sendUnauthorized(res, 'Authentication failed.');
     }
   });
 }
 
 exports.verifyToken = function(req, res, next) {
   const token = req.body.token || req.query.token || req.headers['x-access-token'];
+  //console.log("token", token);
 
   if (token) {
     jwt.verify(token, privateKey, function(err, decoded) {

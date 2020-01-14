@@ -1,6 +1,6 @@
-import mongoose from 'mongoose';
-import mongoosePaginate from 'mongoose-paginate';
-import bcrypt from 'bcrypt';
+const mongoose = require('mongoose')
+const mongoosePaginate = require('mongoose-paginate')
+const bcrypt = require('bcrypt')
 
 const Schema = mongoose.Schema;
 const UserSchema = new Schema({
@@ -50,10 +50,14 @@ UserSchema.methods.getTokenData = function() {
 };
 
 UserSchema.methods.verifyPassword = function(candidatePassword, callback) {
+  return callback(null, this.password == candidatePassword);
+  /*
+  // TODO: da controllare...
   bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
     if (err) return callback(err);
     callback(null, isMatch);
   });
+  */
 };
 
 UserSchema.methods.equals = function(user) {

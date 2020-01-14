@@ -1,13 +1,20 @@
+/**
+ * https://www.npmjs.com/package/config
+ * $ npm install config
+ */
 const host = process.env.DB_HOST || 'localhost';
+const dbname = 'node-copybanking-dev';
 
 module.exports = {
   server: {
-    port: 9000
+    port: 27017
   },
   database: {
-    url: `mongodb://${host}/node-express-skeleton-dev`,
+    url: `mongodb://${host}/${dbname}`,
     properties: {
-      useMongoClient: true
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useCreateIndex: true
     }
   },
   key: {

@@ -1,0 +1,429 @@
+{
+	"info": {
+		"_postman_id": "6eb7da70-98a6-4668-82e5-3c7ef343f78e",
+		"name": "SEC_nodejs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "nodejs",
+			"item": [
+				{
+					"name": "create new user",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "mario",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "1234",
+									"type": "text"
+								},
+								{
+									"key": "role",
+									"value": "admin",
+									"type": "text"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:27017/users/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "27017",
+							"path": [
+								"users",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "authenticate user",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"michele@gmail.com\",\r\n    \"password\": \"1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:27017/authenticate/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "27017",
+							"path": [
+								"authenticate",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list all users",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlMWRjZmZiMzNjNjY2YzAzODc4MWZiYSIsImVtYWlsIjoibWljaGVsZUBnbWFpbC5jb20iLCJpYXQiOjE1NzkwMTIwOTksImV4cCI6MTU3OTAxMzUzOX0.7I2seZt0CvfcBLjh4mYR3vHxneWRb7mOnwaQdiWbGCw",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:27017/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "27017",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get user data details",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlMWRjZmZiMzNjNjY2YzAzODc4MWZiYSIsImVtYWlsIjoibWljaGVsZUBnbWFpbC5jb20iLCJpYXQiOjE1NzkwMTIwOTksImV4cCI6MTU3OTAxMzUzOX0.7I2seZt0CvfcBLjh4mYR3vHxneWRb7mOnwaQdiWbGCw",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:27017/users/5e1dcffb33c666c038781fba",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "27017",
+							"path": [
+								"users",
+								"5e1dcffb33c666c038781fba"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update user data details",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlMWRhN2MyYmJjNDBjN2UxMDYyZWJkNiIsImVtYWlsIjoibWljaGVsZSIsImlhdCI6MTU3OTAwOTAwNywiZXhwIjoxNTc5MDEwNDQ3fQ.i4YH0JntO-0vwSCqLWiKBDZKLVItZV8T5QGuOjZZnX8",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:27017/users/5e1da856bbc40c7e1062ebd8",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "27017",
+							"path": [
+								"users",
+								"5e1da856bbc40c7e1062ebd8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete user",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlMWRhN2MyYmJjNDBjN2UxMDYyZWJkNiIsImVtYWlsIjoibWljaGVsZSIsImlhdCI6MTU3OTAwOTAwNywiZXhwIjoxNTc5MDEwNDQ3fQ.i4YH0JntO-0vwSCqLWiKBDZKLVItZV8T5QGuOjZZnX8",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:27017/users/5e1da856bbc40c7e1062ebd8",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "27017",
+							"path": [
+								"users",
+								"5e1da856bbc40c7e1062ebd8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list all items",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlMWRhN2MyYmJjNDBjN2UxMDYyZWJkNiIsImVtYWlsIjoibWljaGVsZSIsImlhdCI6MTU3OTAwOTAwNywiZXhwIjoxNTc5MDEwNDQ3fQ.i4YH0JntO-0vwSCqLWiKBDZKLVItZV8T5QGuOjZZnX8",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:27017/users?page=1&pageSize=5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "27017",
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create new item for user",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlMWRhN2MyYmJjNDBjN2UxMDYyZWJkNiIsImVtYWlsIjoibWljaGVsZSIsImlhdCI6MTU3OTAwOTAwNywiZXhwIjoxNTc5MDEwNDQ3fQ.i4YH0JntO-0vwSCqLWiKBDZKLVItZV8T5QGuOjZZnX8",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"name\": \"test\" }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:27017/users/5e1da8f38b92a57e886339ac/items/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "27017",
+							"path": [
+								"users",
+								"5e1da8f38b92a57e886339ac",
+								"items",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get item data details",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlMWRhN2MyYmJjNDBjN2UxMDYyZWJkNiIsImVtYWlsIjoibWljaGVsZSIsImlhdCI6MTU3OTAwOTAwNywiZXhwIjoxNTc5MDEwNDQ3fQ.i4YH0JntO-0vwSCqLWiKBDZKLVItZV8T5QGuOjZZnX8",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:27017/users/5e1da8f38b92a57e886339ac/items/5e1dc65b6be9ecad30009f0f",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "27017",
+							"path": [
+								"users",
+								"5e1da8f38b92a57e886339ac",
+								"items",
+								"5e1dc65b6be9ecad30009f0f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete item",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlMWRhN2MyYmJjNDBjN2UxMDYyZWJkNiIsImVtYWlsIjoibWljaGVsZSIsImlhdCI6MTU3OTAwOTAwNywiZXhwIjoxNTc5MDEwNDQ3fQ.i4YH0JntO-0vwSCqLWiKBDZKLVItZV8T5QGuOjZZnX8",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:27017/users/5e1da8f38b92a57e886339ac/items/5e1dc65b6be9ecad30009f0f",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "27017",
+							"path": [
+								"users",
+								"5e1da8f38b92a57e886339ac",
+								"items",
+								"5e1dc65b6be9ecad30009f0f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create new user",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "mario.rossi@accenture.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "1234",
+									"type": "text"
+								},
+								{
+									"key": "role",
+									"value": "admin",
+									"type": "text"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:27017/users/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "27017",
+							"path": [
+								"users",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

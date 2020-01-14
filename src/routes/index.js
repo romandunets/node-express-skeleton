@@ -1,8 +1,8 @@
-import express from 'express';
+const express = require('express')
 
-import auth from './auth';
-import users from './users';
-import response from '../helpers/response';
+const auth = require('./auth')
+const users = require('./users')
+const response = require('../helpers/response')
 
 const routes  = express.Router();
 
