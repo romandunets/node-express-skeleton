@@ -57,12 +57,13 @@ UserSchema.methods.verifyPassword = function(candidatePassword, callback) {
 };
 
 UserSchema.methods.equals = function(user) {
-  return this._id == user._id;
+  return this.id == user.id;
 };
 
 UserSchema.methods.canRead = function(object) {
   return this.equals(object) ||
     (object.owner && object.owner == this.id) ||
+    (object._id && object._id == this.id) ||
     this.role == "admin";
 };
 
