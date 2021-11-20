@@ -12,7 +12,7 @@ module.exports = {
   },
   key: {
     privateKey: '37LvDSm4XvjYOh9Y',
-    tokenExpireInMinutes: 1440
+    tokenExpireInSeconds: 1440
   },
   pagination: {
     defaultPage: 1,

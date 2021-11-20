@@ -6,7 +6,7 @@ import response from '../helpers/response';
 const User = mongoose.model('User');
 
 const privateKey = config.key.privateKey;
-const tokenExpireInMinutes = config.key.tokenExpireInMinutes;
+const tokenExpireInSeconds = config.key.tokenExpireInSeconds;
 
 exports.authenticate = function(req, res) {
   User.findOne({ email: req.body.email })
@@ -19,7 +19,7 @@ exports.authenticate = function(req, res) {
       user.verifyPassword(req.body.password, function(err, isMatch) {
         if (isMatch) {
           const token = jwt.sign(user.getTokenData(), privateKey, {
-            expiresIn: tokenExpireInMinutes
+            expiresIn: tokenExpireInSeconds
           });
 
           res.json({
